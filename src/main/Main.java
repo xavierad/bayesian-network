@@ -1,12 +1,34 @@
 package main;
 
-import java.util.LinkedList;
 
 import bnc.Data;
-import bnc.TrainData;
 import load_data.ReadCSV;
 
+/* ****************************************************************************************
+ * Para compilar: >/src javac bnc/*.java load_data/*.java main/*.java 
+ * Para correr: >/src java main.Main bias-train.csv bias-test.csv <score>
+ * Para gerar o ficheiro .jarpara gerar fichero jar
+ * - jar cfm lab3.jar manif.txt lab3/* main/*
+ * - java -jar hello.jar   --> para compilar o .jar
+ * - jar tf hello.jar      --> para ver o conteúdo 
+ * 
+ * 
+ * DÚVIDAS:
+ * []
+ * []
+ * 
+ * 
+ * 
+ * A FAZER:
+ * []
+ * []
+ * []
+ * *****************************************************************************************/
+
+
+
 /* DEPOIS DE TUDO APAGAR OS System.out.prinln AUXILIARES! */
+
 
 
 
@@ -22,6 +44,9 @@ public class Main {
         Data train_data = new Data(read_train.ReadFile());
         ReadCSV read_test = new ReadCSV(args[1]);        
         Data test_data = new Data(read_test.ReadFile());
+
+        System.out.println("Train Data: \n" + train_data);
+        System.out.println("Test Data: \n" + test_data);
         
         /* Score strategy */
         if(args[2].equals("LL")) {

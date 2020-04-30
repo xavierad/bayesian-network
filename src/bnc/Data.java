@@ -1,5 +1,6 @@
 package bnc;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.LinkedList;
  */
 public class Data {
 
-    LinkedList<String[]> data;
+    LinkedList<String[]> data = new LinkedList<String[]>();;
 
     public Data(LinkedList<String[]> data) {
         this.data = data;
@@ -20,4 +21,13 @@ public class Data {
     public int getDataSize() {
         return data.size();
     }    
+
+    @Override
+    public String toString() {
+        String s = new String();
+        for(String[] d : data) {
+            s += Arrays.toString(d) + '\n';
+        }
+        return s;
+    }   
 }

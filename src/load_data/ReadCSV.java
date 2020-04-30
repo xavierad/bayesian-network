@@ -16,8 +16,7 @@ public class ReadCSV {
 
     public ReadCSV(String file) {
         this.file = file;
-    }    
-    
+    }        
 
     public LinkedList<String[]> ReadFile() {
         
@@ -30,13 +29,13 @@ public class ReadCSV {
 
             /* Train data loading */
             BufferedReader br = new BufferedReader(new FileReader(file));  
-
+            line = br.readLine(); // first line are only strings
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(","); // use comma as separator
                 tdata.add(data);                
             }  
             br.close();
-            tdata.forEach(td -> System.out.println(Arrays.toString(td)));
+            //tdata.forEach(td -> System.out.println(Arrays.toString(td)));
         }
 
         catch (IOException e) {  
