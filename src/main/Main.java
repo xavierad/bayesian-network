@@ -36,7 +36,7 @@ public class Main {
     public static void main(String[] args) {
 
         if(args.length != 3) {
-            System.out.println("Number of arguments expected is 3!");
+            System.out.println("Expected 3 arguments instead of " + args.length + ".");
             System.exit(1);
         }
 
