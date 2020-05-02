@@ -1,7 +1,6 @@
 package main;
 
-
-import bnc.Data;
+import bnc.DataSet;
 import load_data.ReadCSV;
 
 /* ****************************************************************************************
@@ -14,7 +13,7 @@ import load_data.ReadCSV;
  * 
  * 
  * DÚVIDAS:
- * []
+ * [] Ver no constutor de DataSet.java
  * []
  * 
  * 
@@ -41,9 +40,9 @@ public class Main {
         }
 
         ReadCSV read_train = new ReadCSV(args[0]);
-        Data train_data = new Data(read_train.ReadFile());
+        DataSet train_data = new DataSet(read_train.ReadFile());
         ReadCSV read_test = new ReadCSV(args[1]);        
-        Data test_data = new Data(read_test.ReadFile());
+        DataSet test_data = new DataSet(read_test.ReadFile());
 
         System.out.println("Train Data: \n" + train_data);
         System.out.println("Test Data: \n" + test_data);

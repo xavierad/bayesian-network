@@ -5,7 +5,7 @@ package bnc;
  */
 public class MDL extends LL {
 
-    public MDL(Data train_data, Data test_data) {
+    public MDL(DataSet train_data, DataSet test_data) {
         super(train_data, test_data);
     }
 
