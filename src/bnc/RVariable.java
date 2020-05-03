@@ -3,9 +3,9 @@ package bnc;
 import java.util.LinkedList;
 
 /**
- * Feature
+ * RVariable
  */
-public class Feature {
+public class RVariable {
 
     String name;
     int max_value;
@@ -13,7 +13,7 @@ public class Feature {
     LinkedList<Integer> values;
 
 
-    public Feature(String name) {
+    public RVariable(String name) {
         this.name = name;
     }
 

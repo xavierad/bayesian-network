@@ -13,7 +13,7 @@ import load_data.ReadCSV;
  * 
  * 
  * DÚVIDAS:
- * [] Ver no constutor de DataSet.java
+ * [] Ver no construtor de DataSet.java
  * []
  * 
  * 
