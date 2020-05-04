@@ -1,0 +1,6 @@
+C:\Users\vicen\Desktop\4A2S\POO\project\src\bnc\Data.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\bnc\IModSelection.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\bnc\LL.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\bnc\MDL.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\load_data\ReadCSV.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\main\Main.java
