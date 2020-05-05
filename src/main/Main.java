@@ -61,13 +61,13 @@ public class Main {
         }     
         
         ReadCSV read_train = new ReadCSV(args[0]);
-        DataSet train_data = new DataSet(read_train.ReadFile());
+        Dataset train_data = new Dataset(read_train.ReadFile());
         ReadCSV read_test = new ReadCSV(args[1]);        
-        DataSet test_data = new DataSet(read_test.ReadFile());
+        Dataset test_data = new Dataset(read_test.ReadFile());
 
         System.out.println("Train Data: \n" + train_data);
         System.out.println("Test Data: \n" + test_data);
-        
+
 	/** Structure Learning **/
 	/* Process data - into Nijkc and maybe seperate Xi */
 
@@ -99,6 +99,35 @@ public class Main {
 	    interface ICostFunction {
 	       
 	    }
-	*/
+    */
+    
+
+        /* Possível estrutura para o main - mutável
+
+        if(args[2].equals("LL")) {
+            ICostFunction cf = new LL;
+            System.out.println("Score chosen: LL");
+        }
+        else if(args[2].equals("MDL")) {
+            ICostFunction cf = new MDL;
+            System.out.println("Score chosen: MDL");
+        }
+        else {
+            System.out.println("No score chosen!");
+            System.exit(1);
+        }  
+
+        ReadCSV read_train = new ReadCSV(args[0]);
+        Dataset train_data = new Dataset(read_train.ReadFile());
+        ReadCSV read_test = new ReadCSV(args[1]);        
+        Dataset test_data = new Dataset(read_test.ReadFile());
+
+        IClassifier bnc = new BNC(cf);
+
+        bnc.build(train_data);
+        new int[] classes_predicted = bnc.predict(test_data);
+
+        scores.....
+        */
     }
 }
