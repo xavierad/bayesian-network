@@ -34,7 +34,6 @@ public class ReadCSV {
                 tdata.add(data);                
             }  
             br.close();
-            //tdata.forEach(td -> System.out.println(Arrays.toString(td)));
         }
 
         catch (IOException e) {  

@@ -1,10 +1,11 @@
+package classifier;
 
 /**
  * BNC
  */
 public class BNC implements IClassifier {
     /** ATRIBUTES **/
-    private int[][][][] N;
+    private int[][][][][] N;
     private float[][] alpha;
     private DirectedGraph G;
     private float[][][][] theta;
@@ -47,25 +48,41 @@ public class BNC implements IClassifier {
 	
     }
 
-    protected int[][][][] countNijkc(Dataset train_data){
-        int n = train_data.getRVDimension()-1, qi, ri, s;
-        int weights[][] = new int[n][n];
-        int N[][][][];
+    protected int[][][][][] countNijkc(Dataset train_data){
+        RVariable[] rvector = train_data.random_vector;
+        int n = train_data.getRVDimension()-1;
 
-        for(int i=0; i<n-1; i++) {
-            for(int _i=i+1; i<n; i++) {
-                qi=train_data.random_vector[i+1].max_value;;
+        int max = 0;
+        for(RVariable rvar:rvector) max = Math.max(max,rvar.max_value);
 
-                for(int j=1; j<=qi ; j++) {                
-                    ri=train_data.random_vector[i].max_value;
+        int N[][][][][] = new int[n][n][max][max][max];
+        
+        /* 
+        i is in range [0;n-2[ because the last feature (in position n-1) cannot be its own parent
+        _i is in range [i+1;n-1[ because it is not need to count for parents that were childs.
 
-                    for(int k=1; k<=ri; k++) {                
-                        s=train_data.random_vector[n+1].max_value;
+        For example: X1|X2|X3 --> Then i = {1,2} (childs) and _i = {2,3} (parents), like a distributive parent assignement
+        */
+      /*  for(int i=0; i<n-2; i++) {    
+            for(int _i=i+1; _i<n-1; _i++) {
+                for(int line=0; line<train_data.getDataSize(); line++) {                    
+                    int j = rvector[_i].values.get(line);
+                    int k = rvector[i].values.get(line);
+                    int c = rvector[n+1].values.get(line);
+                    N[_i][i][j][k][c]++;
+                }
+            }           
+        }*/
 
-                        for(int c=1; c<=s; c++) {
-                            weights[i][_i] = 1;
-                        }
-                    }
+        /* i is the feature node that will have as parent node _i */
+        for(int i=0; i<n; i++) {    
+            for(int _i=0; _i<n; _i++) {
+                if(_i==i) continue;
+                for(int line=0; line<train_data.getDataSize(); line++) {                    
+                    int j = rvector[_i].values.get(line);
+                    int k = rvector[i].values.get(line);
+                    int c = rvector[n+1].values.get(line);
+                    N[_i][i][j][k][c]++;
                 }
             }           
         }
