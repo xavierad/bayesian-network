@@ -1,4 +1,4 @@
-package bnc;
+package classifier;
 
 import java.util.LinkedList;
 

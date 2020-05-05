@@ -1,0 +1,17 @@
+  c:/Users/vicen/Desktop/4A2S/POO/project/src/classifier:
+  total used in directory 16 available 254504240
+  drwxrwxrwx  1 vicen vicen 4096 05-04 21:30 ..
+  drwxrwxrwx  1 vicen vicen 4096 05-04 21:34 .
+  -rw-rw-rw-  1 vicen vicen 1526 05-03 18:24 Data.class
+  -rw-rw-rw-  1 vicen vicen 1266 05-03 18:24 DataSet.java
+  -rw-rw-rw-  1 vicen vicen  734 05-04 21:31 IClassifier.java~
+  -rw-rw-rw-  1 vicen vicen  128 05-04 21:33 IClassifier.java
+  -rw-rw-rw-  1 vicen vicen  133 05-01 14:58 IModSelection.class
+  -rw-rw-rw-  1 vicen vicen  100 05-01 14:38 IModSelection.java
+  -rw-rw-rw-  1 vicen vicen  430 05-01 14:58 LL.class
+  -rw-rw-rw-  1 vicen vicen 1264 05-03 18:24 LL.java
+  -rw-rw-rw-  1 vicen vicen  271 05-01 14:58 MDL.class
+  -rw-rw-rw-  1 vicen vicen  258 05-03 18:24 MDL.java
+  -rw-rw-rw-  1 vicen vicen  722 05-03 18:24 RVariable.java
+  -rw-rw-rw-  1 vicen vicen   25 05-04 21:31 .#RVariable.java
+  -rw-rw-rw-  1 vicen vicen  689 05-04 21:34 #RVariable.java#

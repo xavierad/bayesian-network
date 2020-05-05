@@ -1,7 +1,7 @@
 package main;
 
-import bnc.DataSet;
-import load_data.ReadCSV;
+import classifier.*;
+import load_data.*;
 
 /* ****************************************************************************************
  * (Xavier)
@@ -45,14 +45,6 @@ public class Main {
             System.out.println("Expected 3 arguments instead of " + args.length + ".");
             System.exit(1);
         }
-
-        ReadCSV read_train = new ReadCSV(args[0]);
-        DataSet train_data = new DataSet(read_train.ReadFile());
-        ReadCSV read_test = new ReadCSV(args[1]);        
-        DataSet test_data = new DataSet(read_test.ReadFile());
-
-        System.out.println("Train Data: \n" + train_data);
-        System.out.println("Test Data: \n" + test_data);
         
         /* Score strategy */
         if(args[2].equals("LL")) {
@@ -66,8 +58,16 @@ public class Main {
         else {
             System.out.println("No score chosen!");
             System.exit(1);
-        }
-	
+        }     
+        
+        ReadCSV read_train = new ReadCSV(args[0]);
+        DataSet train_data = new DataSet(read_train.ReadFile());
+        ReadCSV read_test = new ReadCSV(args[1]);        
+        DataSet test_data = new DataSet(read_test.ReadFile());
+
+        System.out.println("Train Data: \n" + train_data);
+        System.out.println("Test Data: \n" + test_data);
+        
 	/** Structure Learning **/
 	/* Process data - into Nijkc and maybe seperate Xi */
 

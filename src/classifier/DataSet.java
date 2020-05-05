@@ -1,4 +1,4 @@
-package bnc;
+package classifier;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -6,13 +6,13 @@ import java.util.LinkedList;
 /**
  * Data
  */
-public class DataSet {
+public class Dataset {
 
     LinkedList<String[]> data = new LinkedList<String[]>();
     RVariable[] random_vector;
 
-    /* DataSet's constructor allows to preprocess data creating an array of features */  
-    public DataSet(LinkedList<String[]> data) {
+    /* Dataset's constructor allows to preprocess data creating an array of features */  
+    public Dataset(LinkedList<String[]> data) {
         this.data = data;
         this.random_vector = new RVariable[getRVDimension()]; //dúvida: como é que não pede a string para o constructor de feature?
 

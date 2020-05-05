@@ -1,4 +1,3 @@
-
 package classifier;
 
 /**
@@ -6,6 +5,6 @@ package classifier;
  */
 public interface IClassifier {
 
-    void build();
-    void predict();
+    void build(Dataset traind);
+    void predict(Dataset testd);
 }
