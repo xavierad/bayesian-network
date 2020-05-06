@@ -17,11 +17,12 @@ public class Dataset {
         this.random_vector = new RVariable[getRVDimension()]; //dúvida: como é que não pede a string para o constructor de feature?
 
         for(int i=0; i<random_vector.length; i++) {
-            random_vector[i].name = data.getFirst()[i];
-
-            for(String[] values : data) {                     
-                random_vector[i].values.add(Integer.valueOf(values[i]));
-            } 
+            //random_vector[i] = new RVariable(data.getFirst()[i]);
+            
+            random_vector[i] = new RVariable();
+            for(String[] d : data) 
+                random_vector[i].values.add(Integer.valueOf(d[i]));
+            random_vector[i].calcMaxValue();
         }
     }
 
@@ -32,7 +33,7 @@ public class Dataset {
 
     /* To get the size of data */
     public int getDataSize() {
-        return data.size()-1;
+        return data.size();
     }     
 
     @Override
