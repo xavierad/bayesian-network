@@ -14,7 +14,7 @@ public class Dataset {
     /* Dataset's constructor allows to preprocess data creating an array of features */  
     public Dataset(LinkedList<String[]> data) {
         this.data = data;
-        this.random_vector = new RVariable[getRVDimension()]; //dúvida: como é que não pede a string para o constructor de feature?
+        this.random_vector = new RVariable[getRVDimension()]; 
 
         for(int i=0; i<random_vector.length; i++) {
             //random_vector[i] = new RVariable(data.getFirst()[i]);

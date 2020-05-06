@@ -31,6 +31,14 @@ public class ReadCSV {
             line = br.readLine(); // first line are only strings
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(","); // use comma as separator
+                for(String d:data) {
+                    try {
+                        Integer.parseInt(d);            
+                    } catch (NumberFormatException e) {
+                        System.out.println("Got an unusual instance in file " + file + '!');
+                        System.exit(1);
+                    }
+                }
                 tdata.add(data);                
             }  
             br.close();

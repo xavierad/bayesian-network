@@ -20,7 +20,7 @@ import load_data.*;
  * 
  * 
  * DÚVIDAS:
- * [] Ver no construtor de DataSet.java
+ * []
  * []
  * 
  * 
@@ -123,8 +123,10 @@ public class Main {
         Dataset test_data = new Dataset(read_test.ReadFile());
 
         IClassifier bnc = new BNC(cf);
-
+        long start = System.currentTimeMillis();        
         bnc.build(train_data);
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
         new int[] classes_predicted = bnc.predict(test_data);
 
         scores.....

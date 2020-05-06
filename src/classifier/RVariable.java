@@ -22,9 +22,8 @@ public class RVariable {
     /* To calculate the maximum value of this feature */
     public void calcMaxValue() {
         int max=0;
-        for(int value:values){
+        for(int value:values)
             max = (value > max) ? value : max;
-        }
         this.max_value = max;
     }
 }
