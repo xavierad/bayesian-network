@@ -7,7 +7,7 @@ public class BNC implements IClassifier {
     /** ATRIBUTES **/
     private int[][][][][] N;
     private float[][] alphas;
-    private DirectedGraph G;
+    private String G;
     private float[][][][] thetas;
     private float[] thetaC;
     private ICostFunction cf;
@@ -74,8 +74,41 @@ public class BNC implements IClassifier {
         return N;
     }
 
-    protected DirectedGraph getDirectedGraph(int[][] alpha){
-	
+    protected String getDirectedGraph(int[][] alpha) {
+
+	int mstWeight = 0;
+	int w = 0;
+	int maximumWeight = 0;
+	List<Integer> visitedNodes = new ArrayList<>();
+	visitedNodes.add(0);
+	while (visitedNodes.size() != alpha.length) {
+		maximumWeight = 0;
+		for (int i : visitedNodes) {
+			for (int j = 0; j < alpha.length; ++j) {
+				if (maximumWeight < alpha[i][j] && !visitedNodes.contains(j)) {
+					System.out.format("i: %d j: %d with weight %2d\n", i, j, alpha[i][j]);
+					maximumWeight = alpha[i][j];
+					w = j;
+				}
+
+			}
+
+		}
+		System.out.format("added %d with weight %d\n", w, maximumWeight);
+		visitedNodes.add(w);
+		mstWeight += maximumWeight;
+	}
+
+	System.out.printf("MST WEIGHT = %d \n", mstWeight);
+	System.out.printf("MST = %s\n", visitedNodes.toString());
+
+	for (int i = 0; i < alpha.length; i++) {
+		for (int j = 0; j < alpha[i].length; j++) {
+			System.out.format("%2d ", alpha[i][j]);
+		}
+		System.out.println();
+	}
+	return visitedNodes.toString();
     }
 
     protected int[][][][] computeOFE(){
