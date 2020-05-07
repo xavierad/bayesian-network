@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * BNC
+ * BNC - This class implements the interface IClassifier
+ * It will override built and predict methods. 
  */
 public class BNC implements IClassifier {
     /** ATRIBUTES **/
@@ -23,11 +24,21 @@ public class BNC implements IClassifier {
     private ICostFunction cf;
     
 
-    /** METHODS **/
+    /**
+     * The BNC's constuctor will receive a 
+     * cost function and assigns it to cf atribute.
+     * @param costfuntion
+     */
     public BNC (ICostFunction costfuntion) {
         cf = costfuntion;
     }
     
+    /**
+     * This method provides a TAN classifier built. It computes the necessary
+     * countings, the alphas weights, the directed tree and the parameters learning.
+     * @param train_data
+     * @return void
+     */
     @Override
     public void build(Dataset train_data) {
 
@@ -66,9 +77,14 @@ public class BNC implements IClassifier {
 	
     }
 
-    /** countNijkc()
-     * This method returns a multidimensional array that contains 
-     * the countings Nijkc for each pair parent-child _i and i.
+
+    /**
+     * This method receives an object of type Dataset and returns void
+     * A multidimensional array that contains the countings Nijkc for 
+     * each pair parent-child _i and i, and the cumulative ones NKijc
+     * and NJikc (atributes of BND class) are computed. 
+     * @param train_data
+     * @return void
      */
     protected void countNijkc(Dataset train_data){
         RVariable[] rvector = train_data.random_vector;
@@ -90,6 +106,7 @@ public class BNC implements IClassifier {
                     int j = rvector[_i].values.get(line);
                     int k = rvector[i].values.get(line);
                     int c = rvector[n].values.get(line);
+                    
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
