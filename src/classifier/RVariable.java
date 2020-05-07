@@ -9,7 +9,9 @@ import java.util.LinkedList;
 public class RVariable {
 
     //String name;
+    /** The maximum value of this random variable */
     int max_value;
+    /** The values that this random variable contains */
     LinkedList<Integer> values;
 
     /**

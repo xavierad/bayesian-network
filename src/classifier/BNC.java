@@ -8,15 +8,23 @@ import java.util.List;
  * It will override built and predict methods. 
  */
 public class BNC implements IClassifier {
-    /** ATRIBUTES **/
+    
+    /** A multidimensional array that will contain Nijkc countings of each pair i-i'*/
     private int[][][][][] Nijkc;
+    /** A multidimensional array that will contain NJikc cumulative countings (through j) of each pair i-i'*/
     private int[][][][] NJikc;
+    /** A multidimensional array that will contain NJikc cumulative countings (through k) of each pair i-i'*/
     private int[][][][] NKijc;    
+    /** An array that will contain the maximum values of each feature variable */
     private int[] r;
+    /** An integer variable that will contain the maximum value of the class variable */
     private int s;
 
+    /** An 2-dimensional array that will contain the weights for each pair i-i' */
     private float[][] alphas;    
+    /** A multidimensional array that will contain the parameters learning of a node i */
     private float[][][][] thetas;
+     /** An array that will contain the parameters learning of the class */
     private float[] thetaC;
 
     private String G;
@@ -85,6 +93,8 @@ public class BNC implements IClassifier {
      * @param train_data dataset to be used to compute the countings.
      */
     protected void countNijkc(Dataset train_data){
+
+        
         RVariable[] rvector = train_data.random_vector;
         int n = train_data.getRVDimension()-1;
 

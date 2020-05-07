@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class ReadCSV {
 
+    /** The name of the file to be read */
     String file = new String();
 
     /**
@@ -32,6 +33,7 @@ public class ReadCSV {
      */
     public LinkedList<String[]> ReadFile() {
         
+        /**Data structure that will contain in rows the file's data */
         LinkedList<String[]> tdata = new LinkedList<String[]>(); 
         
         /* Reading the files */
@@ -39,7 +41,7 @@ public class ReadCSV {
                 
             String line = "";  
 
-            /* Train data loading */
+            /* Data loading */
             BufferedReader br = new BufferedReader(new FileReader(file));  
             line = br.readLine(); // first line are only strings, throwing it away
             while ((line = br.readLine()) != null) {

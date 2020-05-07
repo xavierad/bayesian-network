@@ -12,6 +12,8 @@ public class Dataset {
 
     // acho que não faz sentido guardar na classe data, dado que não vamos utilizar senão apenas para carregar para o random_vector
     //LinkedList<String[]> data = new LinkedList<String[]>();
+
+    /** An array that will contain all random variables */
     RVariable[] random_vector;
  
     /**
