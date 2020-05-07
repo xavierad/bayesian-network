@@ -17,19 +17,18 @@ public class ReadCSV {
     /**
      * This the constructor of ReadCSV class. 
      * Assigns the string file to be read to 
-     * the attribute file
-     * @param file
+     * the attribute file.
+     * @param file file to be read.
      */
     public ReadCSV(String file) {
         this.file = file;
     }        
 
     /**
-     * This method will read a file <file> with BufferedReader library. 
+     * This method will read a file with BufferedReader library. 
      * It will abort the program if there is some unusal 
      * type of data like a non-integer.  
-     * @param nothing
-     * @return tdata (the rowed data read)
+     * @return tdata (the rowed data read).
      */
     public LinkedList<String[]> ReadFile() {
         

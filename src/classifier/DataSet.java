@@ -17,7 +17,7 @@ public class Dataset {
     /**
      * Dataset's constructor allows to preprocess
      * data creating an array of features
-     * @param data
+     * @param data data that was read from a file
      */
     public Dataset(LinkedList<String[]> data) {
         //this.data = data;
@@ -47,7 +47,7 @@ public class Dataset {
     /**
      * This method gets the size of
      * data, the amount of instances.
-     * @return  random_vector[0].values.size() (the size).
+     * @return random_vector[0].values.size() (the size).
      */
     public int getDataSize() {
         return random_vector[0].values.size();

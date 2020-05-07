@@ -13,14 +13,12 @@ public class RVariable {
     LinkedList<Integer> values;
 
     /**
-     * RVaribel's constructor will allocate
+     * RVariable's constructor will allocate
      * memory to values atribute for a random variable.
      */
     public RVariable() {
         this.values = new LinkedList<Integer>();
     }
-
-    /* To calculate the maximum value of this feature */
     
     /**
      * This method calculates the maximum value of

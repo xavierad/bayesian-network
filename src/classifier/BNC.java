@@ -27,7 +27,7 @@ public class BNC implements IClassifier {
     /**
      * The BNC's constuctor will receive a 
      * cost function and assigns it to cf atribute.
-     * @param costfuntion
+     * @param costfuntion cost function that computes the weights.
      */
     public BNC (ICostFunction costfuntion) {
         cf = costfuntion;
@@ -36,8 +36,7 @@ public class BNC implements IClassifier {
     /**
      * This method provides a TAN classifier built. It computes the necessary
      * countings, the alphas weights, the directed tree and the parameters learning.
-     * @param train_data
-     * @return void
+     * @param train_data dataset to be used to build the classifier.
      */
     @Override
     public void build(Dataset train_data) {
@@ -83,8 +82,7 @@ public class BNC implements IClassifier {
      * A multidimensional array that contains the countings Nijkc for 
      * each pair parent-child _i and i, and the cumulative ones NKijc
      * and NJikc (atributes of BND class) are computed. 
-     * @param train_data
-     * @return void
+     * @param train_data dataset to be used to compute the countings.
      */
     protected void countNijkc(Dataset train_data){
         RVariable[] rvector = train_data.random_vector;
