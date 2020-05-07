@@ -9,12 +9,18 @@ import java.util.List;
  */
 public class BNC implements IClassifier {
     
+    /** The number of instances int the dataset*/
+    private int N;
+    /** The number of random variables in the dataset*/
+    private int n;
     /** A multidimensional array that will contain Nijkc countings of each pair i-i'*/
     private int[][][][][] Nijkc;
     /** A multidimensional array that will contain NJikc cumulative countings (through j) of each pair i-i'*/
     private int[][][][] NJikc;
     /** A multidimensional array that will contain NJikc cumulative countings (through k) of each pair i-i'*/
-    private int[][][][] NKijc;    
+    private int[][][][] NKijc;   
+    /** An array that will contain the countings that the class takes its c-th value */ 
+    private int[] Nc;
     /** An array that will contain the maximum values of each feature variable */
     private int[] r;
     /** An integer variable that will contain the maximum value of the class variable */
@@ -49,11 +55,13 @@ public class BNC implements IClassifier {
     @Override
     public void build(Dataset train_data) {
 
+        N = train_data.getDataSize();
+        n = train_data.getRVDimension();
         /* Auxiliary variables, keep the maximum values of random variables */ 
-        r = new int[train_data.getRVDimension()-1];
+        r = new int[n-1];
         for(int i=0; i<r.length; i++)
             r[i] = train_data.random_vector[i].max_value;
-        s = train_data.random_vector[train_data.getRVDimension()-1].max_value;
+        s = train_data.random_vector[n-1].max_value;
 
         /** Structure Learning **/
         /* Process data - into Nijkc and maybe seperate Xi */
@@ -81,7 +89,15 @@ public class BNC implements IClassifier {
     
     @Override
     public void predict(Dataset test_data) {
-	
+        int Nt = test_data.getDataSize();
+        int nt = test_data.getRVDimension();
+        RVariable [] rvec = test_data.random_vector;
+
+        for(int line=0; line<Nt; line++)
+            for(int i=0; i<nt-1; i++) { /* to iterate only over features */
+                // do something with rvec[i].values.get(line);
+
+            }                
     }
 
 
@@ -105,6 +121,7 @@ public class BNC implements IClassifier {
         Nijkc = new int[n][n][max+1][max+1][max+1];
         NJikc = new int[n][n][max+1][max+1];
         NKijc = new int[n][n][max+1][max+1];
+        Nc = new int[s+1];
         
         /* i is the feature node that will have as parent node _i */
         for(int i=0; i<n; i++) {    
@@ -118,6 +135,7 @@ public class BNC implements IClassifier {
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
+                    Nc[c]++;
                 }
             }           
         }
@@ -159,12 +177,15 @@ public class BNC implements IClassifier {
     }
 
 
-    /** computeOFE()
-     * This method will receive the multidimensinal array N and the
+    //mudar depois os parâmetros
+    /**
+     * This method will receive the multidimensinal array Nijkc and the
      * directed graph G in order to compute the observed frequency
      * estimates (OFE).
+     * @param N
+     * @param G
      */
-    protected int[][][][] computeOFE(int[][][][][]N, DirectedGraph G){
+    protected void computeOFE(int[][][][][]N, DirectedGraph G){
         int n = N[0].length;
 
         /* As N contains the counting for all possible parent-child configurations
@@ -173,14 +194,21 @@ public class BNC implements IClassifier {
         // from the feature root, go to the childs 
         //FALTA: QUANDO SOUBER A ESTRUTURA DE G, IR DE PAI EM PAI (PARA DEPOIS ACEDER EM _i e saver qi e ri)
         for(int i=0; i<n; i++)
-            for(int j=0; j<r[_i]; j++)
-                for(int k=0; k<r[i]; k++)
-                    for(int c=0; c<s; c++)
+            for(int j=0; j=<r[_i]; j++)
+                for(int k=0; k<=r[i]; k++)
+                    for(int c=0; c<=s; c++)
                         thetas[i][j][k][c] = (N[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
     }
 
-    protected int[] computeClassOFE(){
-	
+    /**
+     * This method will compute the observed frequency estimates
+     * of the variable class. 
+     */
+    protected void computeClassOFE(){
+        for(int c=0; c<=s; s++)
+            thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
     
+
+
 }
