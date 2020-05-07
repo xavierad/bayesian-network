@@ -1,6 +1,6 @@
 package classifier;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -8,12 +8,13 @@ import java.util.LinkedList;
  */
 public class Dataset {
 
-    LinkedList<String[]> data = new LinkedList<String[]>();
+    // acho que não faz sentido guardar na classe data, dado que não vamos utilizar senão apenas para carregar para o random_vector
+    //LinkedList<String[]> data = new LinkedList<String[]>();
     RVariable[] random_vector;
 
     /* Dataset's constructor allows to preprocess data creating an array of features */  
     public Dataset(LinkedList<String[]> data) {
-        this.data = data;
+        //this.data = data;
         this.random_vector = new RVariable[getRVDimension()]; 
 
         for(int i=0; i<random_vector.length; i++) {
@@ -28,20 +29,20 @@ public class Dataset {
 
     /* To get the number of features plus the class variable */
     public int getRVDimension(){
-        return data.getFirst().length;
+        return random_vector.length;
     }
 
     /* To get the size of data */
     public int getDataSize() {
-        return data.size();
+        return  random_vector[0].values.size();
     }     
 
-    @Override
+    /*@Override
     public String toString() {
         String s = new String();
         for(String[] d : data) {
             s += Arrays.toString(d) + '\n';
         }
         return s;
-    }   
+    } */  
 }

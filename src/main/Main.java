@@ -65,8 +65,8 @@ public class Main {
         ReadCSV read_test = new ReadCSV(args[1]);        
         Dataset test_data = new Dataset(read_test.ReadFile());
 
-        System.out.println("Train Data: \n" + train_data);
-        System.out.println("Test Data: \n" + test_data);
+       /* System.out.println("Train Data: \n" + train_data);
+        System.out.println("Test Data: \n" + test_data);*/
 
 	/** Structure Learning **/
 	/* Process data - into Nijkc and maybe seperate Xi */

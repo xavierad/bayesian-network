@@ -47,11 +47,6 @@ public class ReadCSV {
         catch (IOException e) {  
             e.printStackTrace();  
         }
-
         return tdata;
-    }
-
-
-           
-
+    }          
 }
