@@ -5,21 +5,12 @@ package classifier;
  */
 public class BNC implements IClassifier {
     /** ATRIBUTES **/
-<<<<<<< HEAD
     private int[][][][][] Nijkc;
-    private int[][][][] NJikc;
-    private int[][][][] NKijc;
-    
-    private float[][] alphas;    
-=======
-    private int[][][][][] N;
     private float[][] alphas;
     private String G;
->>>>>>> 1e724d5f5f750de226bb059973cb340f0f07c6ac
     private float[][][][] thetas;
     private float[] thetaC;
-
-    private DirectedGraph G;
+    
     private ICostFunction cf;
     
     /** METHODS **/
@@ -89,24 +80,6 @@ public class BNC implements IClassifier {
         }
     }
 
-<<<<<<< HEAD
-   /* protected int[][][][] countNJikc(int[][][][][]Nijkc) {
-        int n=train_data.getRVDimension();
-        int length = Nijkc[0][0].length;
-        int N[][][][] = new int[n][length][length][length];
-
-        for(int i=0; i<n; i++) {
-            int ri = train_data.random_vector[i].max_value;
-            for(int j=0; j<ri; j++) {
-                NJikc[][][][]
-            }
-        }
-
-    }*/
-
-    protected DirectedGraph getDirectedGraph(int[][] alpha){
-	
-=======
     protected String getDirectedGraph(int[][] alpha) {
 
 	int mstWeight = 0;
@@ -142,7 +115,6 @@ public class BNC implements IClassifier {
 		System.out.println();
 	}
 	return visitedNodes.toString();
->>>>>>> 1e724d5f5f750de226bb059973cb340f0f07c6ac
     }
 
 
