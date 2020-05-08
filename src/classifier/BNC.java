@@ -1,6 +1,7 @@
 package classifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -88,20 +89,35 @@ public class BNC implements IClassifier {
     }
     
     @Override
-    public void predict(Dataset test_data) {
+    public int[] predict(Dataset test_data) {
         int Nt = test_data.getDataSize();
         int nt = test_data.getRVDimension();
-        RVariable [] rvector = test_data.random_vector;
-        double[] Pc = new double[s];
+        int[] predictions = new int[Nt];
 
-        for(int line=0; line<Nt; line++)
+        RVariable [] rvector = test_data.random_vector;
+
+        double[] Pc = new double[s];
+        double[] Pins = new double[s];
+
+        for(int line=0; line<Nt; line++) {/* to iterate over each instance */
             for(int i=0; i<nt-1; i++) { /* to iterate only over features */
-                // do something with rvec[i].values.get(line);
-                rvector[i].values.get(line);
-                /* Computing the probability of each class given an instance*/
-                for(int c=0; c<=s; c++)
-                    Pc[c] = (thetaC[c]*thetas)
-            }                
+
+                int k = rvector[i].values.get(line);
+                int j = rvector[/*must know the parent*/].values.get(line);
+
+                /* Computing the probability of each instance, but with only features picked */
+                for(int c=0; c<=s; c++) 
+                   Pins[c] = thetaC[c]*thetas[i][j][k][c];
+
+                /* Computing the probability of each class given an instance and assigning the predicion class*/
+                double max = 0.0;
+                for(int c=0; c<=s; c++) {    
+                    Pc[c] = Pins[c] / (Arrays.stream(Pins).sum());
+                    predictions[line] = (Pc[c] > max) ? c : 0;
+                }                
+            }  
+        }
+        return predictions;                  
     }
 
 
