@@ -6,5 +6,5 @@ package classifier;
 public interface IClassifier {
 
     void build(Dataset traind);
-    void predict(Dataset testd);
+    int[] predict(Dataset testd);
 }

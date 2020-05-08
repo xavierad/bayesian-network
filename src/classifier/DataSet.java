@@ -44,8 +44,6 @@ public class Dataset {
         return random_vector.length;
     }
 
-    /* To get the size of data */
-
     /**
      * This method gets the size of
      * data, the amount of instances.

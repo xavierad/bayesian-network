@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import metrics.ClassifierMetrics;
+
 /**
  * BNC - This class implements the interface IClassifier
  * It will override built and predict methods. 
@@ -27,7 +29,7 @@ public class BNC implements IClassifier {
     /** An integer variable that will contain the maximum value of the class variable */
     private int s;
 
-    /** An 2-dimensional array that will contain the weights for each pair i-i' */
+    /** A 2-dimensional array that will contain the weights for each pair i-i' */
     private double[][] alphas;    
     /** A multidimensional array that will contain the parameters learning of a node i */
     private double[][][][] thetas;
@@ -37,6 +39,8 @@ public class BNC implements IClassifier {
     private String G;
 
     private ICostFunction cf;
+
+    private ClassifierMetrics metrics;
     
 
     /**
@@ -99,8 +103,10 @@ public class BNC implements IClassifier {
         double[] Pc = new double[s];
         double[] Pins = new double[s];
 
-        for(int line=0; line<Nt; line++) {/* to iterate over each instance */
-            for(int i=0; i<nt-1; i++) { /* to iterate only over features */
+        /* to iterate over each instance */
+        for(int line=0; line<Nt; line++) {
+            /* to iterate only over features */
+            for(int i=0; i<nt-1; i++) { 
 
                 int k = rvector[i].values.get(line);
                 int j = rvector[/*must know the parent*/].values.get(line);
