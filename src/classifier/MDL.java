@@ -5,16 +5,28 @@ package classifier;
  */
 public class MDL extends LL {
 
-    /*public MDL(Dataset train_data, Dataset test_data) {
-        super(train_data, test_data);
-    }*/
-
-    @Override
-    public float[][] computeWeights() {
-
-
-        //return super.computeWeights();
+    /** Empty constructor */
+    public MDL(){
     }
 
-    
+    /** */
+    @Override
+    public double[][] computeWeights(int[][][][][] Nijkc, int N, int[][][][] NiJkc, int[][][][] NijKc
+                                    , int[] Nc, int[] R_i, int S) {
+        //
+        double a[][] = new double[N][N];
+        a = super.computeWeights(Nijkc, N, NiJkc, NijKc, Nc, R_i, S);
+        double s = (double) S;
+
+        for (int i_ = 0; i_ < N; i_++) {
+            for (int i = 0; i < N; i++) {
+                double q_i = (double) R_i[i_];
+                double r_i = (double) R_i[i];
+                a[i][i_] -= s*(r_i - 1.0)*(q_i - 1.0)/2 * Math.log((double) N);
+            }
+        }
+
+    }
+
+
 }
