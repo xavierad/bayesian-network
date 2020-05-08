@@ -10,8 +10,7 @@ import java.util.LinkedList;
  */
 public class Dataset {
 
-    // acho que não faz sentido guardar na classe data, dado que não vamos utilizar senão apenas para carregar para o random_vector
-    //LinkedList<String[]> data = new LinkedList<String[]>();
+    LinkedList<String[]> data = new LinkedList<String[]>();
 
     /** An array that will contain all random variables */
     RVariable[] random_vector;
@@ -22,7 +21,7 @@ public class Dataset {
      * @param data data that was read from a file
      */
     public Dataset(LinkedList<String[]> data) {
-        //this.data = data;
+        this.data = data;
         this.random_vector = new RVariable[getRVDimension()]; 
 
         for(int i=0; i<random_vector.length; i++) {
@@ -38,19 +37,19 @@ public class Dataset {
     /**
      * This method gets the number
      * of random variables in random_vector.
-     * @return random_vector.length (the random vector length)
+     * @return data.getFirst().length (the random vector length)
      */
     public int getRVDimension(){
-        return random_vector.length;
+        return data.getFirst().length;
     }
 
     /**
      * This method gets the size of
      * data, the amount of instances.
-     * @return random_vector[0].values.size() (the size).
+     * @return data.size() (the size).
      */
     public int getDataSize() {
-        return random_vector[0].values.size();
+        return data.size();
     }     
 
     /*@Override

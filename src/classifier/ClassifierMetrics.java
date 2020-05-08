@@ -35,12 +35,11 @@ public class ClassifierMetrics {
         /* number of correct predictions */
         int ncp=0;
 
-        for (int i=0; i<predictions.length; i++) 
-            
+        for (int i=0; i<predictions.length; i++)             
             if(predictions[i] == classes[i])
                 ncp++;       
 
-        return ncp/predictions.length;
+        return (double)100*ncp/predictions.length;
     }
 
     // [0:<<metric_for_positive_0>>,...,v:<<metric_for_positive_z-1>>,<<metric_weighted_average>>]
@@ -67,7 +66,7 @@ public class ClassifierMetrics {
         /* Sensitivity = TP / (TP + FN) */
         for(int c=0; c<=s; c++){
             for(int i=0; i<predictions.length; i++) {
-                Nc[classes[i]]++;
+                if(c==0) Nc[classes[i]]++;
                 /* True Positives */
                 if(predictions[i] == classes[i] && c == predictions[i])
                     TP[c]++;
@@ -76,11 +75,11 @@ public class ClassifierMetrics {
                     FN[c]++;
             }
             /* sensitivity per class */
-            sensitivityC[c] = (TP[c]==0) ? 0 : TP[c]/(TP[c] + FN[c]);
+            sensitivityC[c] = (TP[c]==0) ? 0 : (double)TP[c]/(TP[c] + FN[c]);
             /* Weighted average of all sensitivities */
-            sensitivity += sensitivityC[c]*Nc[c]/(s+1);
+            sensitivity += sensitivityC[c]*Nc[c]/classes.length;
         }       
-        return sensitivity;
+        return 100*sensitivity;
     } 
 
     public double getSpecitivity(int[]predictions, int[]classes) {
@@ -97,7 +96,7 @@ public class ClassifierMetrics {
         /* Specitivity = TN / (TN + FP) */
         for(int c=0; c<=s; c++){
             for(int i=0; i<predictions.length; i++) {
-                Nc[classes[i]]++;
+                if(c==0) Nc[classes[i]]++;
                 /* True Negatives */
                 if(predictions[i] == classes[i] && c != predictions[i])
                     TN[c]++;
@@ -106,11 +105,11 @@ public class ClassifierMetrics {
                     FP[c]++;
             }
             /* specitivity per class */
-            specitivityC[c] = (TN[c]==0) ? 0 : TN[c]/(TN[c] + FP[c]);
+            specitivityC[c] = (TN[c]==0) ? 0 : (double) TN[c]/(TN[c] + FP[c]);
             /* Weighted average of all specitivities */
-            specitivity += specitivityC[c]*Nc[c]/(s+1);
+            specitivity += specitivityC[c]*Nc[c]/classes.length;
         }       
-        return specitivity;
+        return 100*specitivity;
     } 
 
     public double getPrecision(int[]predictions, int[]classes) {
@@ -127,7 +126,7 @@ public class ClassifierMetrics {
          /* Precision = TP/PP */
          for(int c=0; c<=s; c++){
              for(int i=0; i<predictions.length; i++) {
-                 Nc[classes[i]]++;
+                 if(c==0) Nc[classes[i]]++;
                  /* True Positives */
                  if(predictions[i] == classes[i] && c == predictions[i])
                      TP[c]++;
@@ -136,17 +135,17 @@ public class ClassifierMetrics {
                      PP[c]++;
              }
              /* sensitivity per class */
-             precisionC[c] = (TP[c]==0) ? 0 : TP[c]/PP[c];
+             precisionC[c] = (TP[c]==0) ? 0 : (double) TP[c]/PP[c];
              /* Weighted average of all sensitivities */
-             precision += precisionC[c]*Nc[c]/(s+1);
+             precision += precisionC[c]*Nc[c]/classes.length;
          }       
-         return precision;
+         return 100*precision;
     }
 
     public double getF1Score(int[]predictions, int[]classes) {
         double sensitivity = getSensitivity(predictions, classes);
         double precision = getPrecision(predictions, classes);
 
-        return 2*precision*sensitivity / (precision+sensitivity);
+        return 100*2*precision*sensitivity / (precision+sensitivity);
     }    
 }
