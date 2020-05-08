@@ -27,11 +27,11 @@ public class BNC implements IClassifier {
     private int s;
 
     /** An 2-dimensional array that will contain the weights for each pair i-i' */
-    private float[][] alphas;    
+    private double[][] alphas;    
     /** A multidimensional array that will contain the parameters learning of a node i */
-    private float[][][][] thetas;
+    private double[][][][] thetas;
      /** An array that will contain the parameters learning of the class */
-    private float[] thetaC;
+    private double[] thetaC;
 
     private String G;
 
@@ -80,23 +80,27 @@ public class BNC implements IClassifier {
         /* (?) Add leafs to tree with C values */
 
         /** Parameter Learning (or just BNC) **/
-        /* Get OFE */
-        thetas = computeOFE(Nijkc,NKijc,G);
+        /* Compute the features' OFE */
+        computeOFE(Nijkc,NKijc,G);
 
-        /* Get ClassOFE */
-        thetaC = computeClassOFE(N,G);
+        /* Compute the class's OFE */
+        computeClassOFE(N,G);
     }
     
     @Override
     public void predict(Dataset test_data) {
         int Nt = test_data.getDataSize();
         int nt = test_data.getRVDimension();
-        RVariable [] rvec = test_data.random_vector;
+        RVariable [] rvector = test_data.random_vector;
+        double[] Pc = new double[s];
 
         for(int line=0; line<Nt; line++)
             for(int i=0; i<nt-1; i++) { /* to iterate only over features */
                 // do something with rvec[i].values.get(line);
-
+                rvector[i].values.get(line);
+                /* Computing the probability of each class given an instance*/
+                for(int c=0; c<=s; c++)
+                    Pc[c] = (thetaC[c]*thetas)
             }                
     }
 
