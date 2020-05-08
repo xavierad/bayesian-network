@@ -28,16 +28,8 @@ public class BNC implements IClassifier {
     /** An integer variable that will contain the maximum value of the class variable */
     private int s;
 
-<<<<<<< HEAD
-    /** A 2-dimensional array that will contain the weights for each pair i-i' */
-=======
     /** An 2-dimensional array that will contain the weights for each pair i-i' */
-<<<<<<< HEAD
->>>>>>> 973c8ae7b24ea38fa199ef9db993ef60fc3a2e94
     private double[][] alphas;    
-=======
-    private double[][] alphas;
->>>>>>> Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
     /** A multidimensional array that will contain the parameters learning of a node i */
     private double[][][][] thetas;
      /** An array that will contain the parameters learning of the class */
@@ -47,11 +39,7 @@ public class BNC implements IClassifier {
 
     private ICostFunction cf;
 
-<<<<<<< HEAD
     private ClassifierMetrics metrics;
-    
-=======
->>>>>>> 973c8ae7b24ea38fa199ef9db993ef60fc3a2e94
 
     /**
      * The BNC's constuctor will receive a
@@ -118,7 +106,6 @@ public class BNC implements IClassifier {
             /* to iterate only over features */
             for(int i=0; i<nt-1; i++) { 
 
-<<<<<<< HEAD
                 int k = rvector[i].values.get(line);
                 int j = rvector[/*must know the parent*/].values.get(line);
 
@@ -137,7 +124,7 @@ public class BNC implements IClassifier {
         return predictions;                  
 =======
             }
->>>>>>> Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
+//Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
     }
 
 
@@ -181,7 +168,7 @@ public class BNC implements IClassifier {
         }
     }
 
-<<<<<<< HEAD
+
     protected List<nodes> getDirectedGraph(int[][] alpha) {
 
 		int mstWeight = 0;
@@ -227,7 +214,7 @@ public class BNC implements IClassifier {
 		}
 		return newList;
 	}
-=======
+
     protected String getDirectedGraph(double[][] alpha) {
 
         int mstWeight = 0;
@@ -262,7 +249,7 @@ public class BNC implements IClassifier {
         }
         return visitedNodes.toString();
     }
->>>>>>> Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
+// Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
 
 
     //mudar depois os parâmetros
@@ -273,7 +260,6 @@ public class BNC implements IClassifier {
      * @param N
      * @param G
      */
-
     protected void computeOFE(int[][][][][]N, DirectedGraph G){
         int n = N[0].length;
 
