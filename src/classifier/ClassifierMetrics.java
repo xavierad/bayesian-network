@@ -18,20 +18,19 @@ public class ClassifierMetrics {
     double[] specitivities;
     double[] f1scores;
 
-    // será que é necessário os parâmetros data e classifier? não é só preciso as arrays predictions e classes?
     /**
      * This constructor will allocate memory. It must receive the type of classifier and the dataset.
      * @param classifier
      * @param data
      */
-    public ClassifierMetrics(IClassifier classifier, Dataset data) {
-        this.classifier = classifier;
-        this.data = data;
+    public ClassifierMetrics(int[]predictions, int[]classes) {
+        //this.classifier = classifier;
+        //this.data = data;
 
-        int[] predictions = classifier.predict(data);
+        /*int[] predictions = classifier.predict(data);
         int[] classes = new int[predictions.length];
         for (int i=0; i<classes.length; i++)
-            classes[i] = data.random_vector[data.random_vector.length - 1].values.get(i);        
+            classes[i] = data.random_vector[data.random_vector.length - 1].values.get(i);*/     
 
         this.accuracy = getAccuracy(predictions, classes);
         this.sensitivities = getSensitivity(predictions, classes);
@@ -39,10 +38,7 @@ public class ClassifierMetrics {
         this.f1scores = getF1Score(predictions, classes);
     }
 
-    //
-    //para imprimir com duas casas decimais, pôr por exemplo System.out.println("value: %.2f" + value); ou String result = String.format("%.2f", value);
-    //
-
+    
     /**
      * This method will compute the accuracy, the proportion of correct predictions, making a comparison with given classes, over all prediction
      * @param predictions
@@ -60,9 +56,6 @@ public class ClassifierMetrics {
         return (double)100*ncp/predictions.length;
     }
 
-    //
-    // [0:<<metric_for_positive_0>>,...,v:<<metric_for_positive_z-1>>,<<metric_weighted_average>>]
-    //
 
     /**
      * This method will compute a weighted average sensitivity of the classifier and for each class. 

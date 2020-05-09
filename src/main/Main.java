@@ -96,6 +96,14 @@ public class Main {
         new int[] classes_predicted = bnc.predict(test_data);
 
         scores.....
+
+
+        * main*
+        IClassifier bnc = new BNC;
+        ....
+        bnc.build()
+        bnc.predict()
+        bnc.results()
         */
     }
 }

@@ -41,6 +41,7 @@ public class BNC implements IClassifier {
 
     private ClassifierMetrics metrics;
 
+
     /**
      * The BNC's constuctor will receive a
      * cost function and assigns it to cf atribute.
@@ -96,6 +97,8 @@ public class BNC implements IClassifier {
         int nt = test_data.getRVDimension();
         int[] predictions = new int[Nt];
 
+   
+
         RVariable [] rvector = test_data.random_vector;
 
         double[] Pc = new double[s];
@@ -123,8 +126,6 @@ public class BNC implements IClassifier {
         }
         return predictions;                  
     }
-//Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
-
 
 
     /**
@@ -168,16 +169,16 @@ public class BNC implements IClassifier {
     }
 
 
-    protected List<nodes> getDirectedGraph(int[][] alpha) {
+    protected List<Nodes> getDirectedGraph(double[][] alpha) {
 
 		int mstWeight = 0;
 		int w = 0;
 		int k = 0;
-		int maximumWeight = 0;
+		double maximumWeight = 0;
 		List<Integer> visitedNodes = new ArrayList<>();
-		List<nodes> newList = new ArrayList<nodes>();
+		List<Nodes> newList = new ArrayList<Nodes>();
 		visitedNodes.add(0);
-		newList.add(new nodes(0, 0));
+		newList.add(new Nodes(0, 0));
 		while (visitedNodes.size() != alpha.length) {
 			maximumWeight = 0;
 			for (int i : visitedNodes) {
@@ -188,33 +189,30 @@ public class BNC implements IClassifier {
 						w = j;
 
 					}
-
 				}
-
 			}
 			visitedNodes.add(w);
 			mstWeight += maximumWeight;
-			System.out.printf("%d - %d\n", k, w);
-			newList.add(new nodes(k, w));
-
+			//System.out.printf("%d - %d\n", k, w);
+			newList.add(new Nodes(k, w));
 		}
 
-		System.out.println("List of nodes:");
-		for (nodes obj : newList) {
+		//System.out.println("List of nodes:");
+		for (Nodes obj : newList) 
 			System.out.println(obj);
-		}
-		System.out.printf("MST WEIGHT = %d \n", mstWeight);
+		
+		//System.out.printf("MST WEIGHT = %d \n", mstWeight);
 
-		for (int i = 0; i < alpha.length; i++) {
+		/*for (int i = 0; i < alpha.length; i++) {
 			for (int j = 0; j < alpha[i].length; j++) {
 				System.out.format("%2d ", alpha[i][j]);
 			}
 			System.out.println();
-		}
+		}*/
 		return newList;
 	}
 
-    protected String getDirectedGraph(double[][] alpha) {
+    /*protected String getDirectedGraph(double[][] alpha) {
 
         int mstWeight = 0;
         int w = 0;
@@ -247,8 +245,7 @@ public class BNC implements IClassifier {
             System.out.println();
         }
         return visitedNodes.toString();
-    }
-// Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
+    }*/
 
 
     //mudar depois os parâmetros
@@ -283,6 +280,6 @@ public class BNC implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
-
+    
 
 }

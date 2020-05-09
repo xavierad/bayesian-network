@@ -1,11 +1,11 @@
 package entities;
 
-public class nodes {
+public class Nodes {
 	private Integer father;
 	private Integer son;
 	
 	
-	public nodes(Integer father, Integer son) {
+	public Nodes(Integer father, Integer son) {
 		this.father = father;
 		this.son = son;
 	}
