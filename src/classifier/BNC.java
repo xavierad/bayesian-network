@@ -122,10 +122,9 @@ public class BNC implements IClassifier {
             }  
         }
         return predictions;                  
-=======
-            }
-//Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
     }
+//Added both computeWeights methods (MDL & LL) missing comments, also some problems with the computeDirectedGraph that will be solved with later.
+
 
 
     /**

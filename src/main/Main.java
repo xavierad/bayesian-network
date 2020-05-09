@@ -2,7 +2,6 @@ package main;
 
 import classifier.*;
 import load_data.*;
-import metrics.ClassifierMetrics;
 
 /* ****************************************************************************************
  * (Xavier)
