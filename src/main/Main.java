@@ -2,6 +2,7 @@ package main;
 
 import classifier.*;
 import load_data.*;
+import entities.*;
 
 /* ****************************************************************************************
  * (Xavier)
@@ -45,20 +46,20 @@ public class Main {
             System.out.println("Expected 3 arguments instead of " + args.length + ".");
             System.exit(1);
         }
-
-        /* Score strategy */
+        /*
         if(args[2].equals("LL")) {
-            //strategy LL
+            ICostFunction cf = new LL();
             System.out.println("Score chosen: LL");
         }
         else if(args[2].equals("MDL")) {
-            //strategy MDL
+            ICostFunction cf = new MDL();
             System.out.println("Score chosen: MDL");
         }
         else {
             System.out.println("No score chosen!");
             System.exit(1);
-        }
+        }*/
+
 
         ReadCSV read_train = new ReadCSV(args[0]);
         Dataset train_data = new Dataset(read_train.ReadFile());
@@ -68,42 +69,19 @@ public class Main {
        /* System.out.println("Train Data: \n" + train_data);
         System.out.println("Test Data: \n" + test_data);*/
 
-        /* Possível estrutura para o main - mutável
-
-        if(args[2].equals("LL")) {
-            ICostFunction cf = new LL;
-            System.out.println("Score chosen: LL");
-        }
-        else if(args[2].equals("MDL")) {
-            ICostFunction cf = new MDL;
-            System.out.println("Score chosen: MDL");
-        }
-        else {
-            System.out.println("No score chosen!");
-            System.exit(1);
-        }
-
-        ReadCSV read_train = new ReadCSV(args[0]);
-        Dataset train_data = new Dataset(read_train.ReadFile());
-        ReadCSV read_test = new ReadCSV(args[1]);
-        Dataset test_data = new Dataset(read_test.ReadFile());
-
+        // Possível estrutura para o main - mutável
+        ICostFunction cf = new LL();
         IClassifier bnc = new BNC(cf);
-        long start = System.currentTimeMillis();
+
         bnc.build(train_data);
-        long finish = System.currentTimeMillis();
-        long timeElapsed = finish - start;
-        new int[] classes_predicted = bnc.predict(test_data);
+        int[] pred = new int[test_data.getDataSize()];
+        pred = bnc.predict(test_data);
 
-        scores.....
+        for (int i = 0; i<pred.length; i++){
+          System.out.format("intance %d: %d -> %d\n", i, pred[i], test_data.random_vector[test_data.getRVDimension()-1].values.get(i));
+        }
 
+        //bnc.results()
 
-        * main*
-        IClassifier bnc = new BNC;
-        ....
-        bnc.build()
-        bnc.predict()
-        bnc.results()
-        */
     }
 }

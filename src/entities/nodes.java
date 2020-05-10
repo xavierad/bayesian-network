@@ -3,8 +3,8 @@ package entities;
 public class Nodes {
 	private Integer father;
 	private Integer son;
-	
-	
+
+
 	public Nodes(Integer father, Integer son) {
 		this.father = father;
 		this.son = son;

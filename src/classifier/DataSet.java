@@ -3,8 +3,8 @@ package classifier;
 import java.util.LinkedList;
 
 /**
- * Dataset - This class helps to process and save information about data. 
- * It will contain an array of type RVariable as atribute and two auxiliary method. 
+ * Dataset - This class helps to process and save information about data.
+ * It will contain an array of type RVariable as atribute and two auxiliary method.
  * Mainly it converts a rowed data (linked list of rows) to collumned data
  * (array of collumns) in order to access to random variables easily.
  */
@@ -13,8 +13,8 @@ public class Dataset {
     LinkedList<String[]> data = new LinkedList<String[]>();
 
     /** An array that will contain all random variables */
-    RVariable[] random_vector;
- 
+    public RVariable[] random_vector;
+
     /**
      * Dataset's constructor allows to preprocess
      * data creating an array of features
@@ -22,13 +22,13 @@ public class Dataset {
      */
     public Dataset(LinkedList<String[]> data) {
         this.data = data;
-        this.random_vector = new RVariable[getRVDimension()]; 
+        this.random_vector = new RVariable[getRVDimension()];
 
         for(int i=0; i<random_vector.length; i++) {
             //random_vector[i] = new RVariable(data.getFirst()[i]);
-            
+
             random_vector[i] = new RVariable();
-            for(String[] d : data) 
+            for(String[] d : data)
                 random_vector[i].values.add(Integer.valueOf(d[i]));
             random_vector[i].calcMaxValue();
         }
@@ -50,7 +50,7 @@ public class Dataset {
      */
     public int getDataSize() {
         return data.size();
-    }     
+    }
 
     /*@Override
     public String toString() {
@@ -59,5 +59,5 @@ public class Dataset {
             s += Arrays.toString(d) + '\n';
         }
         return s;
-    } */  
+    } */
 }
