@@ -12,7 +12,7 @@ public class RVariable {
     /** The maximum value of this random variable */
     int max_value;
     /** The values that this random variable contains */
-    public LinkedList<Integer> values; ////////||||||||||||||!!!!!!!!!!!!!!
+    public LinkedList<Integer> values; // ATTENTION REMOVE PUBLIC !!!
 
     /**
      * RVariable's constructor will allocate

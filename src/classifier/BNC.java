@@ -200,7 +200,6 @@ public class BNC implements IClassifier {
         for (Nodes obj : newList)
             System.out.println(obj);
 
-
         return newList;
     }
 

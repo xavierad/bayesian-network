@@ -34,7 +34,6 @@ public class LL implements ICostFunction {
                                 double n_ijc = (double) NijKc[i_][i][j][c];
                                 double n_c = (double) Nc[c];
 
-                                /* MAY CHANGE i and i_ ORDER.*/
                                 a[i][i_] += (n_ijkc)/((double) N) * (Math.log(n_ijkc * n_c / (n_ikc * n_ijc)))/ Math.log(2);
                             }
                         }
@@ -43,6 +42,7 @@ public class LL implements ICostFunction {
             }
         }
 
+        /** REMOVE */
         System.out.printf("LL\n");
         for (int i_ = 0; i_ < n; i_++) {
             for (int i = 0; i < n; i++) {
