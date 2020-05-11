@@ -1,40 +1,26 @@
 package classifier;
 
-import data.Dataset;
-import classifier.IClassifier;
-
 /**
  * ClassifierMetrics - This class provides an object with metrics that scores the classifier predictions
  */
 public class ClassifierMetrics {
 
-    /** A type of classifier */
-    IClassifier classifier;
-    /** A dataset */
-    Dataset data;
-
     double accuracy;
     double[] sensitivities;
-    double[] specitivities;
+    double[] specificities;
     double[] f1scores;
+
+    int s;
 
     /**
      * This constructor will allocate memory. It must receive the type of classifier and the dataset.
-     * @param classifier
-     * @param data
      */
-    public ClassifierMetrics(int[]predictions, int[]classes) {
-        //this.classifier = classifier;
-        //this.data = data;
-
-        /*int[] predictions = classifier.predict(data);
-        int[] classes = new int[predictions.length];
-        for (int i=0; i<classes.length; i++)
-            classes[i] = data.random_vector[data.random_vector.length - 1].values.get(i);*/
-
+    public ClassifierMetrics(int[] predictions, int[] classes) {
+        for(int it : classes)
+            s = Math.max(s, it+1);
         this.accuracy = getAccuracy(predictions, classes);
         this.sensitivities = getSensitivity(predictions, classes);
-        this.specitivities = getSpecitivity(predictions, classes);
+        this.specificities = getSpecitivity(predictions, classes);
         this.f1scores = getF1Score(predictions, classes);
     }
 
@@ -67,17 +53,15 @@ public class ClassifierMetrics {
      * @return sensitivities sensitivity for each class plus a weighted sensitivity of the predictions made by the classifier
      */
     protected double[] getSensitivity(int[]predictions, int[]classes) {
-        /** The maximum value of classes */
-        int s = data.getRVariable(data.getRVDimension()).getMax_value();
         /** Arrays of size s, True Positive and False Negative, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
-        int[] TP = new int[s+1],
-              FN = new int[s+1],
-              Nc = new int[s+1];
+        int[] TP = new int[s],
+              FN = new int[s],
+              Nc = new int[s];
         /**An array that will contain the sensitivity for each class and the weighted average */
-        double[] sensitivities = new double[s+2];
+        double[] sensitivities = new double[s+1];
 
         /* Sensitivity = TP / (TP + FN) */
-        for(int c=0; c<=s; c++){
+        for(int c=0; c<s; c++){
             for(int i=0; i<predictions.length; i++) {
                 if(c==0) Nc[classes[i]]++;
                 /* True Positives */
@@ -90,7 +74,7 @@ public class ClassifierMetrics {
             /* sensitivity per class */
             sensitivities[c] = (TP[c]==0) ? 0 : (double)100*TP[c]/(TP[c] + FN[c]);
             /* Weighted average of all sensitivities */
-            sensitivities[s+1] += sensitivities[c]*Nc[c]/classes.length;
+            sensitivities[s] += sensitivities[c]*Nc[c]/classes.length;
         }
         return sensitivities;
     }
@@ -102,20 +86,18 @@ public class ClassifierMetrics {
      * of the day, the method returns the weighted average of all results.
      * @param predictions
      * @param classes
-     * @return specitivities specitivity for each class plus a weighted specitivity of the predictions made by the classifier
+     * @return specificities specitivity for each class plus a weighted specitivity of the predictions made by the classifier
      */
     protected double[] getSpecitivity(int[]predictions, int[]classes) {
-        /** The maximum value of classes */
-        int s = data.getRVariable(data.getRVDimension()-1).getMax_value();
         /** Arrays of size s, True Negative and False Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
-        int[] TN = new int[s+1],
-              FP = new int[s+1],
-              Nc = new int[s+1];
+        int[] TN = new int[s],
+              FP = new int[s],
+              Nc = new int[s];
         /**An array that will contain the specitivity for each class and the weighted average */
-        double[] specitivities = new double[s+2];
+        double[] specificities = new double[s+1];
 
         /* Specitivity = TN / (TN + FP) */
-        for(int c=0; c<=s; c++){
+        for(int c=0; c<s; c++){
             for(int i=0; i<predictions.length; i++) {
                 if(c==0) Nc[classes[i]]++;
                 /* True Negatives */
@@ -126,11 +108,11 @@ public class ClassifierMetrics {
                     FP[c]++;
             }
             /* specitivity per class */
-            specitivities[c] = (TN[c]==0) ? 0 : (double) 100*TN[c]/(TN[c] + FP[c]);
-            /* Weighted average of all specitivities */
-            specitivities[s+1] += specitivities[c]*Nc[c]/classes.length;
+            specificities[c] = (TN[c]==0) ? 0 : (double) 100*TN[c]/(TN[c] + FP[c]);
+            /* Weighted average of all specificities */
+            specificities[s] += specificities[c]*Nc[c]/classes.length;
         }
-        return specitivities;
+        return specificities;
     }
 
 
@@ -144,17 +126,15 @@ public class ClassifierMetrics {
      * @return prediction a weighted precision of the predictions made by the classifier
      */
     protected double[] getPrecision(int[]predictions, int[]classes) {
-         /** The maximum value of classes */
-         int s = data.getRVariable(data.getRVDimension()-1).getMax_value();
          /** Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
-         int[] TP = new int[s+1],
-             PP = new int[s+1],
-             Nc = new int[s+1];
+         int[] TP = new int[s],
+             PP = new int[s],
+             Nc = new int[s];
          /**An array that will contain the precision for each class */
-         double[] precisions = new double[s+2];
+         double[] precisions = new double[s+1];
 
          /* Precision = TP/PP */
-         for(int c=0; c<=s; c++){
+         for(int c=0; c<s; c++){
              for(int i=0; i<predictions.length; i++) {
                  if(c==0) Nc[classes[i]]++;
                  /* True Positives */
@@ -167,7 +147,7 @@ public class ClassifierMetrics {
              /* precision per class */
              precisions[c] = (TP[c]==0) ? 0 : (double) 100*TP[c]/PP[c];
              /* Weighted average of all precisions */
-             precisions[s+1] += precisions[c]*Nc[c]/classes.length;
+             precisions[s] += precisions[c]*Nc[c]/classes.length;
          }
          return precisions;
     }
@@ -195,26 +175,26 @@ public class ClassifierMetrics {
 
     @Override
     public String toString() {
-        String str = "Resume: " + '\n' + String.format("%.2f", accuracy);
+        String str = "Resume: " + "\nAccuracy: " + String.format("%.2f", accuracy);
         for (int i=0; i<sensitivities.length; i++) {
             if(i==0)
-                str += '\n' + "[" + i + ": " + String.format("%.2f", sensitivities[i]);
+                str += "\nSensitivity: " + "[" + i + ": " + String.format("%.2f", sensitivities[i]);
             else if(i==sensitivities.length-1)
                 str += "; " + String.format("%.2f", sensitivities[i]) + "]";
             else
                 str += "; " + i + ": " + String.format("%.2f", sensitivities[i]);
         }
-        for (int i=0; i<specitivities.length; i++) {
+        for (int i=0; i<specificities.length; i++) {
             if(i==0)
-                str += '\n' + "[" + i + ": " + String.format("%.2f", specitivities[i]);
-            else if(i==specitivities.length-1)
-                str += "; " + String.format("%.2f", specitivities[i]) + "]";
+                str += "\nSpecificity: " + "[" + i + ": " + String.format("%.2f", specificities[i]);
+            else if(i==specificities.length-1)
+                str += "; " + String.format("%.2f", specificities[i]) + "]";
             else
-                str += "; " + i + ": " + String.format("%.2f", specitivities[i]);
+                str += "; " + i + ": " + String.format("%.2f", specificities[i]);
         }
         for (int i=0; i<f1scores.length; i++) {
             if(i==0)
-                str += '\n' + "[" + i + ": " + String.format("%.2f", f1scores[i]);
+                str += "\nF1-Score: " + "[" + i + ": " + String.format("%.2f", f1scores[i]);
             else if(i==f1scores.length-1)
                 str += "; " + String.format("%.2f", f1scores[i]) + "]";
             else

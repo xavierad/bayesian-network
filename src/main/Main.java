@@ -73,22 +73,26 @@ public class Main {
         // Possível estrutura para o main - mutável
         ICostFunction cf = new MDL();
         IClassifier bnc = new BNC(cf);
-
+        long start = System.currentTimeMillis();
         bnc.build(train_data);
+        long buildTime = System.currentTimeMillis() - start;
 
 
         int Nt = test_data.getDataSize();
         int nt = test_data.getRVDimension()-1;
 
         int[] pred = new int[Nt];
+        start = System.currentTimeMillis();
         pred = bnc.predict(test_data);
+        long predictTime = System.currentTimeMillis() - start;
 
-
-        for (int i = 0; i<pred.length; i++){
-          System.out.format("intance %d: %d -> %d\n", i, pred[i], test_data.getRVariable(nt).getValue(i));
-        }
-        //test_data.random_vector[test_data.getRVDimension()-1].values.get(i
-        //bnc.results()
+        /** PRINTS */
+        //System.out.print(bnc.StructuretoString());
+        System.out.print("Time to build: " + buildTime + " ms\n");
+        for (int i = 0; i < pred.length; i++)
+          System.out.format("instance %d: %d\n", i, pred[i]);
+        System.out.print("Time to predict: " + predictTime + " ms\n");
+        System.out.print(new ClassifierMetrics(pred, test_data.getRVariable(nt).getValues()));
 
     }
 }

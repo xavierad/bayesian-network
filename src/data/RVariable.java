@@ -40,5 +40,12 @@ public class RVariable {
     public Integer getValue(int i) {
         return values.get(i);
     }
-    
+
+    public int[] getValues(){
+        int[] arr = new int[values.size()];
+        for (int i=0; i<values.size(); i++)
+            arr[i] = values.get(i);
+        return arr;
+    }
+
 }

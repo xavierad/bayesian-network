@@ -41,9 +41,6 @@ public class BNC implements IClassifier {
 
     private ICostFunction cf;
 
-    private ClassifierMetrics metrics;
-
-
     /**
      * The BNC's constuctor will receive a
      * cost function and assigns it to cf atribute.
@@ -257,5 +254,5 @@ public class BNC implements IClassifier {
             System.out.format("thetaC[%d]: %f\n", i, thetaC[i]);
         }
     }
-
+    
 }
