@@ -5,11 +5,16 @@ package classifier;
  */
 public class ClassifierMetrics {
 
+    /** An attribute that will contain the classifier accuray of prediction */
     double accuracy;
+    /** An array attribute that will contain the classifier sensitivities of prediction, the first positions for each class and the last one a weighted average */
     double[] sensitivities;
+    /** An array attribute that will contain the classifier specificities of prediction, the first positions for each class and the last one a weighted average */
     double[] specificities;
+    /** An array attribute that will contain the classifier f1-scores of prediction, the first positions for each class and the last one a weighted average */
     double[] f1scores;
 
+    /** An attribute that will store the number of configurations of the class variable */
     int s;
 
     /**
@@ -172,7 +177,9 @@ public class ClassifierMetrics {
     }
 
 
-
+    /**
+     * This method will print the resume of the classifier metrics.
+     */
     @Override
     public String toString() {
         String str = String.format("%.2f", accuracy);
@@ -203,8 +210,4 @@ public class ClassifierMetrics {
 
         return str;
     }
-
-
-
-
 }

@@ -8,7 +8,8 @@ import java.util.LinkedList;
  */
 public class RVariable {
 
-    //String name;
+    /** The name of the random variable */
+    String name;
     /** The maximum value of this random variable */
     int max_value;
     /** The values that this random variable contains */
@@ -33,19 +34,31 @@ public class RVariable {
         this.max_value = max;
     }
 
+    /**
+     * This method gets the maximum value of a random variable.
+     * @return max_value the maximum value of a random variable
+     */
     public int getMax_value() {
         return max_value;
     }
 
+    /**
+     * This method gets a value stored in a certain the position.
+     * @param i
+     * @return values.get(i) the values stored in a random variable
+     */
     public Integer getValue(int i) {
         return values.get(i);
     }
 
+    /**
+     * This method gets the values stored in a random variable. It converts the list of type Integer to an array of type int.
+     * @return arr an array of type int that contains the values in a random variable.
+     */
     public int[] getValues(){
         int[] arr = new int[values.size()];
         for (int i=0; i<values.size(); i++)
             arr[i] = values.get(i);
         return arr;
     }
-
 }

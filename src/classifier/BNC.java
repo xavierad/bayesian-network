@@ -25,9 +25,9 @@ public class BNC implements IClassifier {
     private int[][][][] NKijc;
     /** An array that will contain the countings that the class takes its c-th value */
     private int[] Nc;
-    /** An array that will contain the number of values each feature variable takes*/
+    /** An attribute that will store the number of configurations of each feature variable */
     private int[] r;
-    /** An integer variable that will contain the maximum value of the class variable */
+    /** An attribute that will store the number of configurations of the class variable */
     private int s;
 
     /** An 2-dimensional array that will contain the weights for each pair i-i' */
@@ -58,53 +58,65 @@ public class BNC implements IClassifier {
     @Override
     public void build(Dataset train_data) {
 
+        // Getting the data size and number of features
         N = train_data.getDataSize();
         n = train_data.getRVDimension()-1;
-        /* Auxiliary variables, keep the maximum values of random variables */
+        
+        // Storing the maximum values of each random variable
         r = new int[n];
         for(int i=0; i<r.length; i++)
             r[i] = train_data.getRVariable(i).getMax_value() + 1;
         s = train_data.getRVariable(n).getMax_value() + 1;
 
+        // Computations of Nijkc, NJikc, NKijc and Nc
         countNijkc(train_data);
 
+        // Computations of alphas 
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
 
+        // Construction of the directed tree
         G = getDirectedGraph(alphas);
 
+        // Computations of the parameters learning
         computeOFE();
-
         computeClassOFE();
     }
 
+    /**
+     * This method provides an array of predictions that will make use of the parameters, tree built and the test data
+     * @param test_data
+     * @return predictions and array with predictions for each instance
+     */
     @Override
     public int[] predict(Dataset test_data) {
         int Nt = test_data.getDataSize();
-        int nt = test_data.getRVDimension()-1;
         int[] predictions = new int[Nt];
 
         double[] Pc = new double[s];
-        double[] Pins = new double[s];
+        double[] Pinst = new double[s];
 
-        // to iterate over each instance
+        // To iterate over each instance
         for(int line=0; line<Nt; line++) {
             for (int c=0; c<s; c++) {
-                Pins[c] = thetaC[c];
+                Pinst[c] = thetaC[c];
 
+                // To iterate over each connection and get son and father
                 for (Connections it : G){
                     int i = it.getSon();
                     int _i = it.getFather();
 
                     int k = test_data.getRVariable(i).getValue(line);
                     int j = test_data.getRVariable(_i).getValue(line);
-                    Pins[c] *= thetas[i][j][k][c];
+
+                    // Computation of each instance in test_data
+                    Pinst[c] *= thetas[i][j][k][c];
                 }
             }
 
             // Computing the probability of each class given an instance and assigning the predicion class
             double max = 0.0;
             for (int c=0; c<s; c++) {
-                Pc[c] = Pins[c] / (Arrays.stream(Pins).sum());
+                Pc[c] = Pinst[c] / (Arrays.stream(Pinst).sum());
                 if (Pc[c] > max){
                     predictions[line] = c;
                     max = Pc[c];
@@ -112,7 +124,6 @@ public class BNC implements IClassifier {
             }
         }
         return predictions;
-
     }
 
 
@@ -125,6 +136,8 @@ public class BNC implements IClassifier {
      */
     protected void countNijkc(Dataset train_data){
 
+        // In order to know the maximum dimensions of Nijkc, NJikc and NKijc, 
+        // it is needed to know the maximum of maximum values of each feature
         int max = 0;
         for(int i=0; i<n; i++)
             max = Math.max(max,train_data.getRVariable(i).getMax_value());
@@ -135,7 +148,7 @@ public class BNC implements IClassifier {
 
         Nc = new int[s];
 
-        /* i is the feature node that will have as parent node _i */
+        // i is the feature node that will have as parent node _i
         for(int i=0; i<n; i++) {
             for(int _i=0; _i<n; _i++) {
                 if(_i==i) continue;
@@ -144,9 +157,13 @@ public class BNC implements IClassifier {
                     int k = train_data.getRVariable(i).getValue(line);
                     int c = train_data.getRVariable(n).getValue(line);
 
+                    // For each i and _i, given j, k and c increments in 
+                    // each multidimension array in the correspondent position 
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
+                    
+                    // Only once is needed to increment 
                     if(i == 0 && _i == 1)
                       Nc[c]++;
                 }
@@ -181,26 +198,21 @@ public class BNC implements IClassifier {
         return newList;
     }
 
-    //mudar depois os parâmetros
     /**
-     * This method will receive the multidimensinal array Nijkc and the
+     * This method will make use of the multidimensinal array Nijkc and the
      * directed graph G in order to compute the observed frequency
      * estimates (OFE).
-     * @param N
-     * @param G
      */
     protected void computeOFE(){
-        /* As N contains the counting for all possible parent-child configurations
-        it is needed to use G to know those chosen directions */
+        // As N contains the counting for all possible parent-child configurations
+        // it is needed to use G to know those chosen directions 
         int max = 0;
         for(int i : r)
             max = Math.max(max,i);
 
         thetas = new double[n][max][max][s];
 
-        // from the feature root, go to the childs
-        //FALTA: QUANDO SOUBER A ESTRUTURA DE G, IR DE PAI EM PAI (PARA DEPOIS ACEDER EM _i e saver qi e ri)
-        //Node it = G.getFirst();
+        // For each connection, get the son and the father
         for (Connections it : G){
             int _i = it.getFather();
             int i = it.getSon();

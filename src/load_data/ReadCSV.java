@@ -33,19 +33,19 @@ public class ReadCSV {
      */
     public LinkedList<String[]> ReadFile() {
 
-        /**Data structure that will contain in rows the file's data */
+        /** Data structure that will contain in rows the file's data */
         LinkedList<String[]> tdata = new LinkedList<String[]>();
 
-        /* Reading the files */
+        // Reading the file and data loading
         try {
-
             String line = "";
 
-            /* Data loading */
             BufferedReader br = new BufferedReader(new FileReader(file));
-            line = br.readLine(); // first line are only strings, throwing it away
+            
+            // First line are only strings, so keep them as the names of random variables
+            //line = br.readLine();  
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(","); // use comma as separator
+                String[] data = line.split(","); // using comma as separator
                 for(String d:data) {
                     try {
                         Integer.parseInt(d);
