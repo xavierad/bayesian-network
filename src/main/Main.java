@@ -74,13 +74,19 @@ public class Main {
         IClassifier bnc = new BNC(cf);
 
         bnc.build(train_data);
-        int[] pred = new int[test_data.getDataSize()];
+
+
+        int Nt = test_data.getDataSize();
+        int nt = test_data.getRVDimension()-1;
+
+        int[] pred = new int[Nt];
         pred = bnc.predict(test_data);
 
+        
         for (int i = 0; i<pred.length; i++){
-          System.out.format("intance %d: %d -> %d\n", i, pred[i], test_data.random_vector[test_data.getRVDimension()-1].values.get(i));
+          System.out.format("intance %d: %d -> %d\n", i, pred[i], test_data.getRVariable(nt).getValue(i));
         }
-
+        //test_data.random_vector[test_data.getRVDimension()-1].values.get(i
         //bnc.results()
 
     }

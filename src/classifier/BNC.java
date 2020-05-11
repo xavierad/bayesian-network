@@ -95,7 +95,7 @@ public class BNC implements IClassifier {
     @Override
     public int[] predict(Dataset test_data) {
         int Nt = test_data.getDataSize();
-        int nt = test_data.getRVDimension();
+        int nt = test_data.getRVDimension()-1;
         int[] predictions = new int[Nt];
 
 
@@ -108,7 +108,7 @@ public class BNC implements IClassifier {
         // to iterate over each instance
         for(int line=0; line<Nt; line++) {
             // to iterate only over features
-            for(int i=0; i<nt-1; i++) {
+            for(int i=0; i<nt; i++) {
 
                 int k = rvector[i].values.get(line);
                 int j = rvector[i].values.get(line);

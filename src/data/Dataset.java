@@ -1,4 +1,4 @@
-package classifier;
+package data;
 
 import java.util.LinkedList;
 
@@ -13,7 +13,7 @@ public class Dataset {
     LinkedList<String[]> data = new LinkedList<String[]>();
 
     /** An array that will contain all random variables */
-    public RVariable[] random_vector;
+    RVariable[] random_vector;
 
     /**
      * Dataset's constructor allows to preprocess
@@ -25,7 +25,6 @@ public class Dataset {
         this.random_vector = new RVariable[getRVDimension()];
 
         for(int i=0; i<random_vector.length; i++) {
-            //random_vector[i] = new RVariable(data.getFirst()[i]);
 
             random_vector[i] = new RVariable();
             for(String[] d : data)
@@ -51,6 +50,10 @@ public class Dataset {
     public int getDataSize() {
         return data.size();
     }
+
+	public RVariable getRVariable(int i) {
+		return random_vector[i];
+	}    
 
     /*@Override
     public String toString() {

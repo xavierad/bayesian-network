@@ -1,4 +1,4 @@
-package classifier;
+package data;
 
 import java.util.LinkedList;
 
@@ -12,7 +12,7 @@ public class RVariable {
     /** The maximum value of this random variable */
     int max_value;
     /** The values that this random variable contains */
-    public LinkedList<Integer> values; // ATTENTION REMOVE PUBLIC !!!
+    LinkedList<Integer> values;
 
     /**
      * RVariable's constructor will allocate
@@ -32,4 +32,13 @@ public class RVariable {
             max = (value > max) ? value : max;
         this.max_value = max;
     }
+
+    public int getMax_value() {
+        return max_value;
+    }
+
+    public Integer getValue(int i) {
+        return values.get(i);
+    }
+    
 }
