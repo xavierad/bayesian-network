@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import entities.*;
+import data.*;
 
 /**
  * BNC - This class implements the interface IClassifier
@@ -61,19 +62,19 @@ public class BNC implements IClassifier {
     public void build(Dataset train_data) {
 
         N = train_data.getDataSize();
-        n = train_data.getRVDimension();
+        n = train_data.getRVDimension()-1;
         /* Auxiliary variables, keep the maximum values of random variables */
-        r = new int[n-1];
+        r = new int[n];
         for(int i=0; i<r.length; i++)
-            r[i] = train_data.random_vector[i].max_value + 1;
-        s = train_data.random_vector[n-1].max_value + 1;
+            r[i] = train_data.getRVariable(i).getMax_value() + 1;
+        s = train_data.getRVariable(n).getMax_value() + 1;
 
         /** Structure Learning **/
         /* Process data - into Nijkc and maybe seperate Xi */
         countNijkc(train_data); /* Xavier */
 
         /* Get Weigths - acoording to the model chosen */
-        alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n-1); /* Vicente */
+        alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n); /* Vicente */
 
         /* Build Weighted Graph */
 
@@ -98,10 +99,6 @@ public class BNC implements IClassifier {
         int nt = test_data.getRVDimension()-1;
         int[] predictions = new int[Nt];
 
-
-
-        RVariable [] rvector = test_data.random_vector;
-
         double[] Pc = new double[s];
         double[] Pins = new double[s];
 
@@ -110,8 +107,8 @@ public class BNC implements IClassifier {
             // to iterate only over features
             for(int i=0; i<nt; i++) {
 
-                int k = rvector[i].values.get(line);
-                int j = rvector[i].values.get(line);
+                int k = test_data.getRVariable(i).getValue(line);
+                int j = test_data.getRVariable(i).getValue(line);
 
                 // Computing the probability of each instance, but with only features picked
                 for (int c=0; c<s; c++)
@@ -138,13 +135,11 @@ public class BNC implements IClassifier {
      */
     protected void countNijkc(Dataset train_data){
 
-
-        RVariable[] rvector = train_data.random_vector;
         int n = train_data.getRVDimension()-1;
 
         int max = 0;
-        for(RVariable rvar:rvector)
-            max = Math.max(max,rvar.max_value);
+        for(int i=0; i<n; i++) 
+            max = Math.max(max,train_data.getRVariable(i).getMax_value());
 
         Nijkc = new int[n][n][max+1][max+1][s];
         NJikc = new int[n][n][max+1][s];
@@ -157,9 +152,9 @@ public class BNC implements IClassifier {
             for(int _i=0; _i<n; _i++) {
                 if(_i==i) continue;
                 for(int line=0; line<train_data.getDataSize(); line++) {
-                    int j = rvector[_i].values.get(line);
-                    int k = rvector[i].values.get(line);
-                    int c = rvector[n].values.get(line);
+                    int j = test_data.getRVariable(_i).getValue(line);
+                    int k = test_data.getRVariable(i).getValue(line);
+                    int c = test_data.getRVariable(n).getValue(line);
 
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;

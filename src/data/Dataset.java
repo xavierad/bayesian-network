@@ -50,6 +50,7 @@ public class Dataset {
     public int getDataSize() {
         return data.size();
     }
+    
 
 	public RVariable getRVariable(int i) {
 		return random_vector[i];

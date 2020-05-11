@@ -1,4 +1,5 @@
 package classifier;
+import data.*;
 
 /**
  * IClassifier
