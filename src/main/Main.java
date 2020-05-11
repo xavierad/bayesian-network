@@ -71,7 +71,7 @@ public class Main {
         System.out.println("Test Data: \n" + test_data);*/
 
         // Possível estrutura para o main - mutável
-        ICostFunction cf = new LL();
+        ICostFunction cf = new MDL();
         IClassifier bnc = new BNC(cf);
 
         bnc.build(train_data);
@@ -83,7 +83,7 @@ public class Main {
         int[] pred = new int[Nt];
         pred = bnc.predict(test_data);
 
-        
+
         for (int i = 0; i<pred.length; i++){
           System.out.format("intance %d: %d -> %d\n", i, pred[i], test_data.getRVariable(nt).getValue(i));
         }

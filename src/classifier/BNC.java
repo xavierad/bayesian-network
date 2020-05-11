@@ -104,21 +104,28 @@ public class BNC implements IClassifier {
 
         // to iterate over each instance
         for(int line=0; line<Nt; line++) {
-            // to iterate only over features
-            for(int i=0; i<nt; i++) {
+            for (int c=0; c<s; c++) {
+                Pins[c] = thetaC[c];
 
-                int k = test_data.getRVariable(i).getValue(line);
-                int j = test_data.getRVariable(i).getValue(line);
+                for (Connections it : G){
+                    int i = it.getSon();
+                    int _i = it.getFather();
 
-                // Computing the probability of each instance, but with only features picked
-                for (int c=0; c<s; c++)
-                  Pins[c] *= thetaC[c]*thetas[i][j][k][c];
+                    int k = test_data.getRVariable(i).getValue(line);
+                    int j = test_data.getRVariable(_i).getValue(line);
+                    Pins[c] *= thetas[i][j][k][c];
+                }
             }
+
             // Computing the probability of each class given an instance and assigning the predicion class
             double max = 0.0;
             for (int c=0; c<s; c++) {
                 Pc[c] = Pins[c] / (Arrays.stream(Pins).sum());
-                predictions[line] = (Pc[c] > max) ? c : 0;
+                System.out.format("line: %d Pc[%d] %f\n", line, c, Pc[c]);
+                if (Pc[c] > max){
+                    predictions[line] = c;
+                    max = Pc[c];
+                }
             }
         }
         return predictions;
@@ -174,7 +181,7 @@ public class BNC implements IClassifier {
         visitedNodes.add(0);
         newList.add(new Connections(0, 0));
         while (visitedNodes.size() != alpha.length) {
-            maximumWeight = -1;
+            maximumWeight = Double.NEGATIVE_INFINITY;
             for (int i : visitedNodes) {
                 for (int j = 0; j < alpha.length; j++) {
                     if (maximumWeight < alpha[i][j] && !visitedNodes.contains(j)) {
@@ -205,7 +212,7 @@ public class BNC implements IClassifier {
     protected void computeOFE(){
         /* As N contains the counting for all possible parent-child configurations
         it is needed to use G to know those chosen directions */
-        int max = -1;
+        int max = 0;
         for(int i : r)
             max = Math.max(max,i);
 

@@ -14,6 +14,7 @@ public class MDL extends LL {
     public double[][] computeWeights(int[][][][][] Nijkc, int N, int[][][][] NiJkc, int[][][][] NijKc
                                     , int[] Nc, int[] R_i, int S, int n) {
         //
+        System.out.printf("MDL");
         double a[][] = new double[n][n];
         a = super.computeWeights(Nijkc, N, NiJkc, NijKc, Nc, R_i, S, n);
         double s = (double) S;
