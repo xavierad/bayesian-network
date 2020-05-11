@@ -47,19 +47,16 @@ public class Main {
             System.out.println("Expected 3 arguments instead of " + args.length + ".");
             System.exit(1);
         }
-        /*
-        if(args[2].equals("LL")) {
-            ICostFunction cf = new LL();
-            System.out.println("Score chosen: LL");
-        }
-        else if(args[2].equals("MDL")) {
-            ICostFunction cf = new MDL();
-            System.out.println("Score chosen: MDL");
-        }
+        ICostFunction cf;
+        if(args[2].equals("LL"))
+            cf = new LL();
+        else if(args[2].equals("MDL"))
+            cf = new MDL();
         else {
-            System.out.println("No score chosen!");
+            System.out.println("Invalid Score Method!");
+            cf = null;
             System.exit(1);
-        }*/
+        }
 
 
         ReadCSV read_train = new ReadCSV(args[0]);
@@ -67,11 +64,6 @@ public class Main {
         ReadCSV read_test = new ReadCSV(args[1]);
         Dataset test_data = new Dataset(read_test.ReadFile());
 
-       /* System.out.println("Train Data: \n" + train_data);
-        System.out.println("Test Data: \n" + test_data);*/
-
-        // Possível estrutura para o main - mutável
-        ICostFunction cf = new MDL();
         IClassifier bnc = new BNC(cf);
         long start = System.currentTimeMillis();
         bnc.build(train_data);
@@ -88,10 +80,11 @@ public class Main {
 
         /** PRINTS */
         //System.out.print(bnc.StructuretoString());
-        System.out.print("Time to build: " + buildTime + " ms\n");
+        //System.out.print("Time to build: " + buildTime + " ms\n");
+        System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
-          System.out.format("instance %d: %d\n", i, pred[i]);
-        System.out.print("Time to predict: " + predictTime + " ms\n");
+          System.out.format("%-20s%d\n",("-> instance " + i + ":"), pred[i]);
+        System.out.format("%-20s%s\n",("Time to predict: "), (predictTime + " ms"));
         System.out.print(new ClassifierMetrics(pred, test_data.getRVariable(nt).getValues()));
 
     }

@@ -42,14 +42,6 @@ public class LL implements ICostFunction {
             }
         }
 
-        /** REMOVE */
-        System.out.printf("LL\n");
-        for (int i_ = 0; i_ < n; i_++) {
-            for (int i = 0; i < n; i++) {
-                System.out.printf("a[%d][%d]: %f\n", i_, i, a[i_][i]);
-            }
-        }
-
         return a;
     }
 

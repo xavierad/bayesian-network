@@ -66,27 +66,14 @@ public class BNC implements IClassifier {
             r[i] = train_data.getRVariable(i).getMax_value() + 1;
         s = train_data.getRVariable(n).getMax_value() + 1;
 
-        /** Structure Learning **/
-        /* Process data - into Nijkc and maybe seperate Xi */
-        countNijkc(train_data); /* Xavier */
+        countNijkc(train_data);
 
-        /* Get Weigths - acoording to the model chosen */
-        alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n); /* Vicente */
+        alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
 
-        /* Build Weighted Graph */
+        G = getDirectedGraph(alphas);
 
-        /* Transform to MaxSpanningTree (Undirected) */
-
-        /* Transform to Directed Tree - arbitearly chosen root */
-        G = getDirectedGraph(alphas); /* Afonso */
-
-        /* (?) Add leafs to tree with C values */
-
-        /** Parameter Learning (or just BNC) **/
-        /* Compute the features' OFE */
         computeOFE();
 
-        /* Compute the class's OFE */
         computeClassOFE();
     }
 
@@ -118,7 +105,6 @@ public class BNC implements IClassifier {
             double max = 0.0;
             for (int c=0; c<s; c++) {
                 Pc[c] = Pins[c] / (Arrays.stream(Pins).sum());
-                System.out.format("line: %d Pc[%d] %f\n", line, c, Pc[c]);
                 if (Pc[c] > max){
                     predictions[line] = c;
                     max = Pc[c];
@@ -192,9 +178,6 @@ public class BNC implements IClassifier {
             newList.add(new Connections(k, w));
         }
 
-        for (Connections obj : newList)
-            System.out.println(obj);
-
         return newList;
     }
 
@@ -227,16 +210,6 @@ public class BNC implements IClassifier {
                         thetas[i][j][k][c] =
                         (Nijkc[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
         }
-        /* REMOVE */
-        for(int i = 0; i < thetas.length; i++){
-          for(int j = 0; j < thetas[0].length; j++){
-            for(int k = 0; k < thetas[0][0].length; k++){
-              for(int c = 0; c < thetas[0][0][0].length; c++){
-                  System.out.format("theta[%d][%d][%d][%d]: %f\n", i, j, k, c, thetas[i][j][k][c]);
-              }
-            }
-          }
-        }
     }
 
     /**
@@ -248,11 +221,6 @@ public class BNC implements IClassifier {
 
         for(int c=0; c < s; c++)
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
-
-        /* REMOVE */
-        for(int i = 0; i < thetaC.length; i++){
-            System.out.format("thetaC[%d]: %f\n", i, thetaC[i]);
-        }
     }
-    
+
 }

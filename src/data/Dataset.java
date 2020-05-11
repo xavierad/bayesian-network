@@ -50,18 +50,10 @@ public class Dataset {
     public int getDataSize() {
         return data.size();
     }
-    
 
-	public RVariable getRVariable(int i) {
-		return random_vector[i];
-	}    
 
-    /*@Override
-    public String toString() {
-        String s = new String();
-        for(String[] d : data) {
-            s += Arrays.toString(d) + '\n';
-        }
-        return s;
-    } */
+    public RVariable getRVariable(int i) {
+        return random_vector[i];
+    }
+
 }
