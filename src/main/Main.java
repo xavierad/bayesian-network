@@ -1,8 +1,9 @@
 package main;
 
-import classifier.*;
+import data.*;
 import load_data.*;
-import entities.*;
+import classifier.*;
+
 
 /* ****************************************************************************************
  * (Xavier)

@@ -37,7 +37,7 @@ public class BNC implements IClassifier {
     /** An array that will contain the parameters learning of the class */
     private double[] thetaC;
 
-    private List<Nodes> G;
+    private List<Connections> G;
 
     private ICostFunction cf;
 
@@ -152,9 +152,9 @@ public class BNC implements IClassifier {
             for(int _i=0; _i<n; _i++) {
                 if(_i==i) continue;
                 for(int line=0; line<train_data.getDataSize(); line++) {
-                    int j = test_data.getRVariable(_i).getValue(line);
-                    int k = test_data.getRVariable(i).getValue(line);
-                    int c = test_data.getRVariable(n).getValue(line);
+                    int j = train_data.getRVariable(_i).getValue(line);
+                    int k = train_data.getRVariable(i).getValue(line);
+                    int c = train_data.getRVariable(n).getValue(line);
 
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
@@ -167,15 +167,14 @@ public class BNC implements IClassifier {
     }
 
     /**********/
-    protected List<Nodes> getDirectedGraph(double[][] alpha) {
-        double mstWeight = 0;
+    protected List<Connections> getDirectedGraph(double[][] alpha) {
         int w = 0;
         int k = 0;
         double maximumWeight = 0;
         List<Integer> visitedNodes = new ArrayList<>();
-        List<Nodes> newList = new ArrayList<Nodes>();
+        List<Connections> newList = new ArrayList<Connections>();
         visitedNodes.add(0);
-        newList.add(new Nodes(0, 0));
+        newList.add(new Connections(0, 0));
         while (visitedNodes.size() != alpha.length) {
             maximumWeight = -1;
             for (int i : visitedNodes) {
@@ -188,11 +187,10 @@ public class BNC implements IClassifier {
                 }
             }
             visitedNodes.add(w);
-            mstWeight += maximumWeight;
-            newList.add(new Nodes(k, w));
+            newList.add(new Connections(k, w));
         }
 
-        for (Nodes obj : newList)
+        for (Connections obj : newList)
             System.out.println(obj);
 
         return newList;
@@ -218,7 +216,7 @@ public class BNC implements IClassifier {
         // from the feature root, go to the childs
         //FALTA: QUANDO SOUBER A ESTRUTURA DE G, IR DE PAI EM PAI (PARA DEPOIS ACEDER EM _i e saver qi e ri)
         //Node it = G.getFirst();
-        for (Nodes it : G){
+        for (Connections it : G){
             int _i = it.getFather();
             int i = it.getSon();
             for(int j=0; j < r[_i]; j++)

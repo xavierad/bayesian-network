@@ -1,6 +1,6 @@
 package classifier;
 
-import classifier.Dataset;
+import data.Dataset;
 import classifier.IClassifier;
 
 /**
@@ -68,7 +68,7 @@ public class ClassifierMetrics {
      */
     protected double[] getSensitivity(int[]predictions, int[]classes) {
         /** The maximum value of classes */
-        int s = data.random_vector[data.getRVDimension()].max_value;
+        int s = data.getRVariable(data.getRVDimension()).getMax_value();
         /** Arrays of size s, True Positive and False Negative, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
         int[] TP = new int[s+1],
               FN = new int[s+1],
@@ -106,7 +106,7 @@ public class ClassifierMetrics {
      */
     protected double[] getSpecitivity(int[]predictions, int[]classes) {
         /** The maximum value of classes */
-        int s = data.random_vector[data.getRVDimension()-1].max_value;
+        int s = data.getRVariable(data.getRVDimension()-1).getMax_value();
         /** Arrays of size s, True Negative and False Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
         int[] TN = new int[s+1],
               FP = new int[s+1],
@@ -145,7 +145,7 @@ public class ClassifierMetrics {
      */
     protected double[] getPrecision(int[]predictions, int[]classes) {
          /** The maximum value of classes */
-         int s = data.random_vector[data.getRVDimension()-1].max_value;
+         int s = data.getRVariable(data.getRVDimension()-1).getMax_value();
          /** Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
          int[] TP = new int[s+1],
              PP = new int[s+1],
