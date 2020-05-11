@@ -175,10 +175,10 @@ public class ClassifierMetrics {
 
     @Override
     public String toString() {
-        String str = "Resume: " + "\nAccuracy: " + String.format("%.2f", accuracy);
+        String str = String.format("%.2f", accuracy);
         for (int i=0; i<sensitivities.length; i++) {
             if(i==0)
-                str += "\nSensitivity: " + "[" + i + ": " + String.format("%.2f", sensitivities[i]);
+                str += ", " + "[" + i + ": " + String.format("%.2f", sensitivities[i]);
             else if(i==sensitivities.length-1)
                 str += "; " + String.format("%.2f", sensitivities[i]) + "]";
             else
@@ -186,7 +186,7 @@ public class ClassifierMetrics {
         }
         for (int i=0; i<specificities.length; i++) {
             if(i==0)
-                str += "\nSpecificity: " + "[" + i + ": " + String.format("%.2f", specificities[i]);
+                str += ", " + "[" + i + ": " + String.format("%.2f", specificities[i]);
             else if(i==specificities.length-1)
                 str += "; " + String.format("%.2f", specificities[i]) + "]";
             else
@@ -194,7 +194,7 @@ public class ClassifierMetrics {
         }
         for (int i=0; i<f1scores.length; i++) {
             if(i==0)
-                str += "\nF1-Score: " + "[" + i + ": " + String.format("%.2f", f1scores[i]);
+                str += ", " + "[" + i + ": " + String.format("%.2f", f1scores[i]);
             else if(i==f1scores.length-1)
                 str += "; " + String.format("%.2f", f1scores[i]) + "]";
             else
