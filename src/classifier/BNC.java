@@ -135,10 +135,8 @@ public class BNC implements IClassifier {
      */
     protected void countNijkc(Dataset train_data){
 
-        int n = train_data.getRVDimension()-1;
-
         int max = 0;
-        for(int i=0; i<n; i++) 
+        for(int i=0; i<n; i++)
             max = Math.max(max,train_data.getRVariable(i).getMax_value());
 
         Nijkc = new int[n][n][max+1][max+1][s];
@@ -211,7 +209,7 @@ public class BNC implements IClassifier {
         for(int i : r)
             max = Math.max(max,i);
 
-        thetas = new double[n-1][max][max][s];
+        thetas = new double[n][max][max][s];
 
         // from the feature root, go to the childs
         //FALTA: QUANDO SOUBER A ESTRUTURA DE G, IR DE PAI EM PAI (PARA DEPOIS ACEDER EM _i e saver qi e ri)
