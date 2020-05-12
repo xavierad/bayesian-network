@@ -182,7 +182,13 @@ public class BNC implements IClassifier {
         }
     }
 
-    /**********/
+    /**
+     * This method receives an adjacency matrix with weights between 
+     * nodes and returns a list of the connections between nodes.
+     * The goal is to perform the Prim algorithm to obtain the max spanning tree
+     * @param alpha
+     * @return List of connections
+     */
     protected List<Connections> getMaxSpanTreeConnections(double[][] alpha) {
 
         int w = 0;
