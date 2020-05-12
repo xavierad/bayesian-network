@@ -242,10 +242,10 @@ public class BNC implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
-    protected void structuretoString() {
+    /*protected void structuretoString() {
         String str = "";
         for (Connections it : G) 
             str += 
-    }
+    }*/
 
 }
