@@ -1,7 +1,7 @@
 package classifier;
 
 /**
- * ClassifierMetrics - This class provides an object with metrics that scores the classifier predictions
+ * This class provides an object with metrics that scores the classifier predictions.
  */
 public class ClassifierMetrics {
 
@@ -14,6 +14,7 @@ public class ClassifierMetrics {
     /** An array attribute that will contain the classifier f1-scores of prediction, the first positions for each class and the last one a weighted average */
     double[] f1scores;
 
+    //antes
     /** An attribute that will store the number of configurations of the class variable */
     int s;
 
@@ -21,12 +22,29 @@ public class ClassifierMetrics {
      * This constructor will allocate memory. It must receive the type of classifier and the dataset.
      */
     public ClassifierMetrics(int[] predictions, int[] classes) {
-        for(int it : classes)
+
+        // dúvida!!
+        IMetrics acc = new Accuracy(predictions, classes);
+        accuracy = acc.metric_score(predictions, classes)[0];
+
+        IMetrics sens = new Sensitivities(predictions, classes);
+        sensitivities = sens.metric_score(predictions, classes);
+
+        IMetrics spec = new Specificities(predictions, classes);
+        specificities = spec.metric_score(predictions, classes);
+
+        IMetrics prec = new Precisions(predictions, classes);
+
+        IMetrics f1score = new F1Scores(specificities, prec.metric_score(predictions, classes));
+        f1scores = f1score.metric_score(predictions, classes);
+
+        //antes
+        /*for(int it : classes)
             s = Math.max(s, it+1);
         this.accuracy = getAccuracy(predictions, classes);
         this.sensitivities = getSensitivity(predictions, classes);
         this.specificities = getSpecitivity(predictions, classes);
-        this.f1scores = getF1Score(predictions, classes);
+        this.f1scores = getF1Score(predictions, classes);*/
     }
 
 
@@ -37,7 +55,7 @@ public class ClassifierMetrics {
      * @return accuracy the rate of instances of predictions that are equal to instances of classes
      */
     protected double getAccuracy(int[]predictions, int[]classes) {
-        /* number of correct predictions */
+        // number of correct predictions
         int ncp=0;
 
         for (int i=0; i<predictions.length; i++)
