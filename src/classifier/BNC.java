@@ -95,7 +95,7 @@ public class BNC implements IClassifier {
 
     /**
      * This method provides an array of predictions that will make use of the parameters, tree built and the test data
-     * @param test_data
+     * @param test_data data to predict  
      * @return predictions and array with predictions for each instance
      */
     @Override
@@ -186,7 +186,7 @@ public class BNC implements IClassifier {
      * This method receives an adjacency matrix with weights between 
      * nodes and returns a list of the connections between nodes.
      * The goal is to perform the Prim algorithm to obtain the max spanning tree
-     * @param alpha
+     * @param alpha alpha is an adjacency matrix
      * @return List of connections
      */
     protected List<Connections> getMaxSpanTreeConnections(double[][] alpha) {
