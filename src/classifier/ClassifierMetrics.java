@@ -23,7 +23,7 @@ public class ClassifierMetrics {
      */
     public ClassifierMetrics(int[] predictions, int[] classes) {
 
-        // dúvida!!
+        // dúvida: confirmar com a prof
         IMetrics acc = new Accuracy(predictions, classes);
         accuracy = acc.metric_score(predictions, classes)[0];
 
