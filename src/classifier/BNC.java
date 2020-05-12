@@ -13,7 +13,7 @@ import data.*;
  */
 public class BNC implements IClassifier {
 
-    private String[] feature_names; 
+    private String[] feature_names;
 
     /** The number of instances int the dataset*/
     private int N;
@@ -69,24 +69,24 @@ public class BNC implements IClassifier {
 
         // To store the features names
         feature_names = new String[n];
-        
+
         // To store the maximum values of each feature variable and thier names
         r = new int[n];
 
         for(int i=0; i<r.length; i++) {
             feature_names[i] = train_data.getRVariable(i).getRVName();
-            r[i] = train_data.getRVariable(i).getMax_value() + 1;   
+            r[i] = train_data.getRVariable(i).getMax_value() + 1;
         }
         s = train_data.getRVariable(n).getMax_value() + 1;
 
         // Computations of Nijkc, NJikc, NKijc and Nc
         countNijkc(train_data);
 
-        // Computations of alphas 
+        // Computations of alphas
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
 
         // Construction of the directed tree
-        G = getMaxSpanTreeConnections(alphas);           
+        G = getMaxSpanTreeConnections(alphas);
 
         // Computations of the parameters learning
         computeOFE();
@@ -95,7 +95,7 @@ public class BNC implements IClassifier {
 
     /**
      * This method provides an array of predictions that will make use of the parameters, tree built and the test data
-     * @param test_data
+     * @param test_data data to predict  
      * @return predictions and array with predictions for each instance
      */
     @Override
@@ -147,7 +147,7 @@ public class BNC implements IClassifier {
      */
     protected void countNijkc(Dataset train_data){
 
-        // In order to know the maximum dimensions of Nijkc, NJikc and NKijc, 
+        // In order to know the maximum dimensions of Nijkc, NJikc and NKijc,
         // it is needed to know the maximum of maximum values of each feature
         int max = 0;
         for(int i=0; i<n; i++)
@@ -168,13 +168,13 @@ public class BNC implements IClassifier {
                     int k = train_data.getRVariable(i).getValue(line);
                     int c = train_data.getRVariable(n).getValue(line);
 
-                    // For each i and _i, given j, k and c increments in 
-                    // each multidimension array in the correspondent position 
+                    // For each i and _i, given j, k and c increments in
+                    // each multidimension array in the correspondent position
                     Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
-                    
-                    // Only once is needed to increment 
+
+                    // Only once is needed to increment
                     if(i == 0 && _i == 1)
                       Nc[c]++;
                 }
@@ -182,7 +182,13 @@ public class BNC implements IClassifier {
         }
     }
 
-    /**********/
+    /**
+     * This method receives an adjacency matrix with weights between 
+     * nodes and returns a list of the connections between nodes.
+     * The goal is to perform the Prim algorithm to obtain the max spanning tree
+     * @param alpha alpha is an adjacency matrix
+     * @return List of connections
+     */
     protected List<Connections<Integer>> getMaxSpanTreeConnections(double[][] alpha) {
 
         int w = 0;
@@ -220,7 +226,7 @@ public class BNC implements IClassifier {
      */
     protected void computeOFE(){
         // Since Nijkc contains the counting for all possible parent-child configurations
-        // it is needed to use G to know those chosen directions 
+        // it is needed to use G to know those chosen directions
         int max = 0;
         for(int i : r)
             max = Math.max(max,i);
@@ -250,20 +256,17 @@ public class BNC implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
-    protected String structuretoString(Connections<Integer> it) {   
-    
+    protected String connectiontoString(Connections<Integer> it) {
+
         if(it.getSon() == it.getFather())
             return feature_names[it.getSon()] + " : ";
         return feature_names[it.getSon()] + " : " + feature_names[it.getFather()];
     }
-
-    /*protected String structuretoString(Dataset data) {   
-        String str="";
-        for (Connections it : G) { 
-            if(it.getSon() == it.getFather())
-                str += String.format("%-20s%s\n", ("Classifier:"), data.getRVariable(it.getSon()).getRVName() + " : ");
-            else
-                str +=  String.format("%-20s%s\n",("           "), data.getRVariable(it.getSon()).getRVName() + " : " + data.getRVariable(it.getFather()).getRVName());
+    /*
+    public List<String> structuretoString() {
+        List<String> str = new ArrayList<String>();
+        for (Connections it : G) {
+            str.add((connectiontoString(it)));
         }
         return str;
     }*/
@@ -273,13 +276,13 @@ public class BNC implements IClassifier {
         int i=0;
         String str="";
         for (Connections<Integer> it : G) {
-            if(i==0) str += String.format("%-20s%s\n", ("Classifier:"), (structuretoString(it)));
-            else str += String.format("%-20s%s\n",("           "), (structuretoString(it)));
+            if(i==0) str += String.format("%-20s%s\n", ("Classifier:"), (connectiontoString(it)));
+            else str += String.format("%-20s%s\n",("           "), (connectiontoString(it)));
             i++;
         }
         return str;
     }
 
-    
+
 
 }
