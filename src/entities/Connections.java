@@ -1,5 +1,9 @@
 package entities;
 
+/**
+ * This constructor helps in how we can save the nodes connections in a list.
+ * That contains the constructor´s getters and setters to access your fields.
+ */
 public class Connections {
     private Integer father;
     private Integer son;
