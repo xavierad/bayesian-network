@@ -13,6 +13,8 @@ import data.*;
  */
 public class BNC implements IClassifier {
 
+    private String[] feature_names; 
+
     /** The number of instances int the dataset*/
     private int N;
     /** The number of random variables in the dataset*/
@@ -64,11 +66,17 @@ public class BNC implements IClassifier {
         // Getting the data size and the number of features
         N = train_data.getDataSize();
         n = train_data.getRVDimension()-1;
+
+        // To store the features names
+        feature_names = new String[n];
         
-        // Storing the maximum values of each random variable
+        // To store the maximum values of each feature variable and thier names
         r = new int[n];
-        for(int i=0; i<r.length; i++)
-            r[i] = train_data.getRVariable(i).getMax_value() + 1;
+
+        for(int i=0; i<r.length; i++) {
+            feature_names[i] = train_data.getRVariable(i).getRVName();
+            r[i] = train_data.getRVariable(i).getMax_value() + 1;   
+        }
         s = train_data.getRVariable(n).getMax_value() + 1;
 
         // Computations of Nijkc, NJikc, NKijc and Nc
@@ -78,7 +86,7 @@ public class BNC implements IClassifier {
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
 
         // Construction of the directed tree
-        G = getMaxSpanTreeConnections(alphas);
+        G = getMaxSpanTreeConnections(alphas);           
 
         // Computations of the parameters learning
         computeOFE();
@@ -211,7 +219,7 @@ public class BNC implements IClassifier {
      * estimates (OFE).
      */
     protected void computeOFE(){
-        // As N contains the counting for all possible parent-child configurations
+        // Since Nijkc contains the counting for all possible parent-child configurations
         // it is needed to use G to know those chosen directions 
         int max = 0;
         for(int i : r)
@@ -242,10 +250,36 @@ public class BNC implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
-    /*protected void structuretoString() {
-        String str = "";
-        for (Connections it : G) 
-            str += 
+    protected String structuretoString(Connections it) {   
+    
+        if(it.getSon() == it.getFather())
+            return feature_names[it.getSon()] + " : ";
+        return feature_names[it.getSon()] + " : " + feature_names[it.getFather()];
+    }
+
+    /*protected String structuretoString(Dataset data) {   
+        String str="";
+        for (Connections it : G) { 
+            if(it.getSon() == it.getFather())
+                str += String.format("%-20s%s\n", ("Classifier:"), data.getRVariable(it.getSon()).getRVName() + " : ");
+            else
+                str +=  String.format("%-20s%s\n",("           "), data.getRVariable(it.getSon()).getRVName() + " : " + data.getRVariable(it.getFather()).getRVName());
+        }
+        return str;
     }*/
+
+    @Override
+    public String toString() {
+        int i=0;
+        String str="";
+        for (Connections it : G) {
+            if(i==0) str += String.format("%-20s%s\n", ("Classifier:"), (structuretoString(it)));
+            else str += String.format("%-20s%s\n",("           "), (structuretoString(it)));
+            i++;
+        }
+        return str;
+    }
+
+    
 
 }

@@ -74,7 +74,7 @@ public class Main {
         long predictTime = System.currentTimeMillis() - start;
 
         // Prints of the results: classifier structure network, predictions, and the correspondent timers, and resume of metrics
-        //System.out.print(bnc.structuretoString());
+        System.out.print(bnc);
         System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
           System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
