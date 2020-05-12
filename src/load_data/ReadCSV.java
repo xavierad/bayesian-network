@@ -43,7 +43,8 @@ public class ReadCSV {
             BufferedReader br = new BufferedReader(new FileReader(file));
             
             // First line are only strings, so keep them as the names of random variables
-            //line = br.readLine();  
+            line = br.readLine();  
+            tdata.add(line.split(","));
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(","); // using comma as separator
                 for(String d:data) {

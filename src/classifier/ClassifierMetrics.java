@@ -128,7 +128,7 @@ public class ClassifierMetrics {
      * of the day, the method returns the weighted average of all results.
      * @param predictions
      * @param classes
-     * @return prediction a weighted precision of the predictions made by the classifier
+     * @return prediction precision for each class plus a weighted precision of the predictions made by the classifier
      */
     protected double[] getPrecision(int[]predictions, int[]classes) {
          /** Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/

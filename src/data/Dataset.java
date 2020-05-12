@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -30,8 +31,9 @@ public class Dataset {
             random_vector[i] = new RVariable();
 
             // Processing data: get name and values for each collumn of data (random variable)
-            ListIterator<String[]> d = data.listIterator(); 
+            ListIterator<String[]> d = data.listIterator();
             random_vector[i].name = d.next()[i];
+            //System.out.println(i + " " + random_vector[i].name);
             while (d.hasNext()) 
                 random_vector[i].values.add(Integer.valueOf(d.next()[i]));
             random_vector[i].calcMaxValue();
@@ -53,7 +55,7 @@ public class Dataset {
      * @return data.size() (the size).
      */
     public int getDataSize() {
-        return data.size();
+        return data.size()-1;
     }
 
     /**

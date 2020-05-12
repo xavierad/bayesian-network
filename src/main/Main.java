@@ -22,7 +22,7 @@ import classifier.*;
  *
  *
  * DÚVIDAS:
- * []
+ * [] ver linha 36 de Dataset: parece que faz duas vezes o system.out.println...
  * []
  *
  *
