@@ -3,7 +3,7 @@ package classifier;
 /**
  * ICostFunction - An interface that allows clients to implement their own Cost Function.
  */
-public interface ICostFunction {
+public interface IScoreFunction {
 
     /** */
     public double[][] computeWeights(int[][][][][] Nijkc, int N, int[][][][] NiJkc, int[][][][] NijKc

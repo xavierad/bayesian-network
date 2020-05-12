@@ -8,10 +8,10 @@ import entities.*;
 import data.*;
 
 /**
- * BNC - This class implements the interface IClassifier
+ * TAN - This class implements the interface IClassifier
  * It will override built and predict methods.
  */
-public class BNC implements IClassifier {
+public class TAN implements IClassifier {
 
     private String[] feature_names;
 
@@ -27,7 +27,7 @@ public class BNC implements IClassifier {
     private int[][][][] NKijc;
     /** An array that will contain the countings that the class takes its c-th value */
     private int[] Nc;
-    /** An attribute that will store the number of configurations of each feature variable */
+    /** An array that will store the number of configurations of each feature variable */
     private int[] r;
     /** An attribute that will store the number of configurations of the class variable */
     private int s;
@@ -43,16 +43,16 @@ public class BNC implements IClassifier {
     private List<Connections<Integer>> G;
 
 
-    private ICostFunction cf;
+    private IScoreFunction cf;
 
 
     /**
-     * The BNC's constuctor will receive a
-     * cost function and assigns it to cf atribute.
-     * @param costfuntion cost function that computes the weights.
+     * The TAN's constuctor will receive a
+     * scorefunction and assigns it to cf atribute.
+     * @param scorefuntion score function that computes the weights.
      */
-    public BNC (ICostFunction costfuntion) {
-        cf = costfuntion;
+    public TAN (IScoreFunction scorefuntion) {
+        cf = scorefuntion;
     }
 
     /**
@@ -95,7 +95,7 @@ public class BNC implements IClassifier {
 
     /**
      * This method provides an array of predictions that will make use of the parameters, tree built and the test data
-     * @param test_data data to predict  
+     * @param test_data data to predict
      * @return predictions and array with predictions for each instance
      */
     @Override
@@ -183,7 +183,7 @@ public class BNC implements IClassifier {
     }
 
     /**
-     * This method receives an adjacency matrix with weights between 
+     * This method receives an adjacency matrix with weights between
      * nodes and returns a list of the connections between nodes.
      * The goal is to perform the Prim algorithm to obtain the max spanning tree
      * @param alpha alpha is an adjacency matrix
