@@ -7,7 +7,7 @@ import classifier.*;
 
 /* ****************************************************************************************
  * (Xavier)
- * Para compilar: >/src javac bnc/*.java load_data/*.java main/*.java
+ * Para compilar: >/src javac bnc/*.java load_data/*.java main/*.java (antigo)
  * Para correr: >/src java main.Main bias-train.csv bias-test.csv <score>
  * Para gerar o ficheiro .jarpara gerar fichero jar
  * - jar cfm lab3.jar manif.txt lab3/* main/*
@@ -41,14 +41,14 @@ public class Main {
             System.out.println("Expected 3 arguments instead of " + args.length + ".");
             System.exit(1);
         }
-        ICostFunction cf;
+        IScoreFunction sf;
         if(args[2].equals("LL"))
-            cf = new LL();
+            sf = new LL();
         else if(args[2].equals("MDL"))
-            cf = new MDL();
+            sf = new MDL();
         else {
             System.out.println("Invalid Score Method!");
-            cf = null;
+            sf = null;
             System.exit(1);
         }
 
@@ -58,10 +58,10 @@ public class Main {
         ReadCSV read_test = new ReadCSV(args[1]);
         Dataset test_data = new Dataset(read_test.ReadFile());
 
-        // Build a classifier with cost function cf
-        IClassifier bnc = new BNC(cf);
+        // Build a classifier with cost function sf
+        IClassifier tan = new TAN(sf);
         long start = System.currentTimeMillis();
-        bnc.build(train_data);
+        tan.build(train_data);
         long buildTime = System.currentTimeMillis() - start;
 
         int Nt = test_data.getDataSize();
@@ -70,11 +70,11 @@ public class Main {
         // Making the predictions with test data
         int[] pred = new int[Nt];
         start = System.currentTimeMillis();
-        pred = bnc.predict(test_data);
+        pred = tan.predict(test_data);
         long predictTime = System.currentTimeMillis() - start;
 
         // Prints of the results: classifier structure network, predictions, and the correspondent timers, and resume of metrics
-        System.out.print(bnc);
+        System.out.print(tan);
         System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
           System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
