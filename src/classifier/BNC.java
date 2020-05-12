@@ -40,7 +40,7 @@ public class BNC implements IClassifier {
     private double[] thetaC;
 
 
-    private List<Connections> G;
+    private List<Connections<Integer>> G;
 
 
     private ICostFunction cf;
@@ -112,7 +112,7 @@ public class BNC implements IClassifier {
                 Pinst[c] = thetaC[c];
 
                 // To iterate over each connection and get son and father
-                for (Connections it : G){
+                for (Connections<Integer> it : G){
                     int i = it.getSon();
                     int _i = it.getFather();
 
@@ -183,18 +183,18 @@ public class BNC implements IClassifier {
     }
 
     /**********/
-    protected List<Connections> getMaxSpanTreeConnections(double[][] alpha) {
+    protected List<Connections<Integer>> getMaxSpanTreeConnections(double[][] alpha) {
 
         int w = 0;
         int k = 0;
         double maximumWeight = 0;
 
         List<Integer> visitedNodes = new ArrayList<>();
-        List<Connections> maxST = new ArrayList<Connections>();
+        List<Connections<Integer>> maxST = new ArrayList<Connections<Integer>>();
 
         // Choosing node 1 by default as root of the max spanning tree
         visitedNodes.add(0);
-        maxST.add(new Connections(0, 0));
+        maxST.add(new Connections<Integer>(0, 0));
 
         while (visitedNodes.size() != alpha.length) {
             maximumWeight = Double.NEGATIVE_INFINITY;
@@ -208,7 +208,7 @@ public class BNC implements IClassifier {
                 }
             }
             visitedNodes.add(w);
-            maxST.add(new Connections(k, w));
+            maxST.add(new Connections<Integer>(k, w));
         }
         return maxST;
     }
@@ -228,7 +228,7 @@ public class BNC implements IClassifier {
         thetas = new double[n][max][max][s];
 
         // For each connection, get the son and the father
-        for (Connections it : G){
+        for (Connections<Integer> it : G){
             int _i = it.getFather();
             int i = it.getSon();
             for(int j=0; j < r[_i]; j++)
@@ -250,7 +250,7 @@ public class BNC implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
-    protected String structuretoString(Connections it) {   
+    protected String structuretoString(Connections<Integer> it) {   
     
         if(it.getSon() == it.getFather())
             return feature_names[it.getSon()] + " : ";
@@ -272,7 +272,7 @@ public class BNC implements IClassifier {
     public String toString() {
         int i=0;
         String str="";
-        for (Connections it : G) {
+        for (Connections<Integer> it : G) {
             if(i==0) str += String.format("%-20s%s\n", ("Classifier:"), (structuretoString(it)));
             else str += String.format("%-20s%s\n",("           "), (structuretoString(it)));
             i++;

@@ -1,32 +1,32 @@
 package entities;
 
-public class Connections {
-    private Integer father;
-    private Integer son;
+public class Connections<T> {
+    private T father;
+    private T son;
 
 
-    public Connections(Integer son, Integer father) {
+    public Connections(T son, T father) {
         this.father = father;
         this.son = son;
     }
 
 
 
-    public Integer getFather() {
+    public T getFather() {
         return father;
     }
 
 
-    public void setFather(Integer father) {
+    public void setFather(T father) {
         this.father = father;
     }
 
 
-    public Integer getSon() {
+    public T getSon() {
         return son;
     }
 
-    public void setSon(Integer son) {
+    public void setSon(T son) {
         this.son = son;
     }
 
