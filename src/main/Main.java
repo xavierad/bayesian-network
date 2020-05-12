@@ -22,7 +22,7 @@ import classifier.*;
  *
  *
  * DÚVIDAS:
- * [] ver linha 36 de Dataset: parece que faz duas vezes o system.out.println...
+ * [] ver linha 36 de Dataset: parece que faz duas vezes o system.out.println... Porquê?
  * [] talvez seja desnecessário guardar o atributo data em dataset: getRVDimension seria random_vector.length,
  *     getDataSize seria random_vector[0].size() e na linha 27 pôr this.random_vector = new RVariable[data.getFirst().length];
  *
@@ -33,13 +33,6 @@ import classifier.*;
  * []
  * []
  * *****************************************************************************************/
-
-
-
-/* DEPOIS DE TUDO APAGAR OS System.out.prinln AUXILIARES! */
-
-
-
 
 public class Main {
     public static void main(String[] args) {
@@ -59,32 +52,32 @@ public class Main {
             System.exit(1);
         }
 
-
+        // Reading and pre-processing both files for training and testing
         ReadCSV read_train = new ReadCSV(args[0]);
         Dataset train_data = new Dataset(read_train.ReadFile());
         ReadCSV read_test = new ReadCSV(args[1]);
         Dataset test_data = new Dataset(read_test.ReadFile());
 
+        // Build a classifier with cost function cf
         IClassifier bnc = new BNC(cf);
         long start = System.currentTimeMillis();
         bnc.build(train_data);
         long buildTime = System.currentTimeMillis() - start;
 
-
         int Nt = test_data.getDataSize();
         int nt = test_data.getRVDimension()-1;
 
+        // Making the predictions with test data
         int[] pred = new int[Nt];
         start = System.currentTimeMillis();
         pred = bnc.predict(test_data);
         long predictTime = System.currentTimeMillis() - start;
 
-        /** PRINTS */
-        //System.out.print(bnc.StructuretoString());
-        //System.out.print("Time to build: " + buildTime + " ms\n");
+        // Prints of the results: classifier structure network, predictions, and the correspondent timers, and resume of metrics
+        //System.out.print(bnc.structuretoString());
         System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
-          System.out.format("%-20s%d\n",("-> instance " + i + ":"), pred[i]);
+          System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
         System.out.format("%-20s%s\n",("Time to predict: "), (predictTime + " ms"));
         System.out.format("%-20s%s\n", ("Resume: "), new ClassifierMetrics(pred, test_data.getRVariable(nt).getValues()));
 

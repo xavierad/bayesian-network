@@ -1,6 +1,5 @@
 package data;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -59,12 +58,11 @@ public class Dataset {
     }
 
     /**
-     * This method will return a random variable by accessing random vector with index i.
+     * This method will return a random variable by accessing the random vector with index i.
      * @param i an index to access in random_vector
-     * @return random_vector[i] a random variable
+     * @return random_vector[i] a random variable.
      */
     public RVariable getRVariable(int i) {
         return random_vector[i];
     }
-
 }

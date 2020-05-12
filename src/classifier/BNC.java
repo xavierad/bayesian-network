@@ -37,9 +37,12 @@ public class BNC implements IClassifier {
     /** An array that will contain the parameters learning of the class */
     private double[] thetaC;
 
+
     private List<Connections> G;
 
+
     private ICostFunction cf;
+
 
     /**
      * The BNC's constuctor will receive a
@@ -58,7 +61,7 @@ public class BNC implements IClassifier {
     @Override
     public void build(Dataset train_data) {
 
-        // Getting the data size and number of features
+        // Getting the data size and the number of features
         N = train_data.getDataSize();
         n = train_data.getRVDimension()-1;
         
@@ -75,7 +78,7 @@ public class BNC implements IClassifier {
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
 
         // Construction of the directed tree
-        G = getDirectedGraph(alphas);
+        G = getMaxSpanTreeConnections(alphas);
 
         // Computations of the parameters learning
         computeOFE();
@@ -172,14 +175,19 @@ public class BNC implements IClassifier {
     }
 
     /**********/
-    protected List<Connections> getDirectedGraph(double[][] alpha) {
+    protected List<Connections> getMaxSpanTreeConnections(double[][] alpha) {
+
         int w = 0;
         int k = 0;
         double maximumWeight = 0;
+
         List<Integer> visitedNodes = new ArrayList<>();
-        List<Connections> newList = new ArrayList<Connections>();
+        List<Connections> maxST = new ArrayList<Connections>();
+
+        // Choosing node 1 by default as root of the max spanning tree
         visitedNodes.add(0);
-        newList.add(new Connections(0, 0));
+        maxST.add(new Connections(0, 0));
+
         while (visitedNodes.size() != alpha.length) {
             maximumWeight = Double.NEGATIVE_INFINITY;
             for (int i : visitedNodes) {
@@ -192,10 +200,9 @@ public class BNC implements IClassifier {
                 }
             }
             visitedNodes.add(w);
-            newList.add(new Connections(k, w));
+            maxST.add(new Connections(k, w));
         }
-
-        return newList;
+        return maxST;
     }
 
     /**
@@ -233,6 +240,12 @@ public class BNC implements IClassifier {
 
         for(int c=0; c < s; c++)
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
+    }
+
+    protected void structuretoString() {
+        String str = "";
+        for (Connections it : G) 
+            str += 
     }
 
 }

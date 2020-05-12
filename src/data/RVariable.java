@@ -36,7 +36,7 @@ public class RVariable {
 
     /**
      * This method gets the maximum value of a random variable.
-     * @return max_value the maximum value of a random variable
+     * @return max_value the maximum value of a random variable.
      */
     public int getMax_value() {
         return max_value;
@@ -44,8 +44,8 @@ public class RVariable {
 
     /**
      * This method gets a value stored in a certain the position.
-     * @param i
-     * @return values.get(i) the values stored in a random variable
+     * @param i an index to access in values list
+     * @return values.get(i) the values stored in a random variable.
      */
     public Integer getValue(int i) {
         return values.get(i);
@@ -61,4 +61,13 @@ public class RVariable {
             arr[i] = values.get(i);
         return arr;
     }
+
+    /**
+     * This method will return a random variable name.
+     * @return name the name of a random variable.
+     */
+    public String getRVName() {
+        return name;
+    }
+
 }
