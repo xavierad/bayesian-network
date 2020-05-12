@@ -23,7 +23,8 @@ import classifier.*;
  *
  * DÚVIDAS:
  * [] ver linha 36 de Dataset: parece que faz duas vezes o system.out.println...
- * []
+ * [] talvez seja desnecessário guardar o atributo data em dataset: getRVDimension seria random_vector.length,
+ *     getDataSize seria random_vector[0].size() e na linha 27 pôr this.random_vector = new RVariable[data.getFirst().length];
  *
  *
  *
