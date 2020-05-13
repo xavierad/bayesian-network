@@ -84,6 +84,11 @@ public class TAN implements IClassifier {
 
         // Computations of alphas
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
+        for (int i = 0; i < alphas.length; i++) {
+            for (int j = 0; j < alphas[0].length; j++) {
+                System.out.println("alpha[" + i + "][" + j + "] = " + alphas[i][j]);
+            }
+        }
 
         // Construction of the directed tree
         G = getMaxSpanTreeConnections(alphas);

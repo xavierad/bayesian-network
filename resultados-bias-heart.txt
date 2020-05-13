@@ -1,0 +1,54 @@
+Note: In network structures all/part of parent-child relationships might be the opossite of the ones represented. But the structure without directed edges should be preserved. See examples of equivalent structures in Slack!
+
+==============
+Bias dataset:
+==============
+
+** LL e MDL
+
+A1: class A2 
+A2: class A8 
+A3: class 
+A4: class A7 
+A5: class A4 
+A6: class A7 
+A7: class A3 
+A8: class A5 
+class:
+
+Note: In this particular dataset, A1 might be linked with any other node.
+
+Accuracy: 100%
+
+               Precision   Recall  F-Measure   Class
+                 1         1         1         0
+                 1         1         1         1
+Weighted Avg.    1         1         1             
+
+==============
+Heart dataset:
+==============
+
+** LL e MDL:
+
+age: class maximum_heart_rate_achieed 
+sex: class age 
+chest: class exercise_induced_angina 
+maximum_heart_rate_achieed: class slope 
+exercise_induced_angina: class maximum_heart_rate_achieed 
+oldpeak: class 
+slope: class oldpeak 
+number_of_major_vessels: class age 
+thal: class sex 
+class:
+
+Accuracy: 85%
+
+
+               Precision   Recall  F-Measure  Class
+               0.889     0.8       0.842      0
+               0.818     0.9       0.857      1
+Weighted Avg.  0.854     0.85      0.85
+
+
+ 
