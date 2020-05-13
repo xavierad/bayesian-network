@@ -85,12 +85,7 @@ public class TAN implements IClassifier {
 
         // Computations of alphas
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
-        /*for (int i = 0; i < alphas.length; i++) {
-            for (int j = 0; j < alphas[0].length; j++) {
-                System.out.println("alpha[" + i + "][" + j + "] = " + alphas[i][j]);
-            }
-        }*/
-
+        
         // Construction of the directed tree
         G = getMaxSpanTreeConnections(alphas);
 
@@ -134,13 +129,11 @@ public class TAN implements IClassifier {
             double max = Double.NEGATIVE_INFINITY;
             for (int c=0; c<s; c++) {
                 Pc[c] = Pinst[c] - (Arrays.stream(Pinst).sum());
-                //System.out.format("Pc[%d] = %f\n", c, Pc[c]);
                 if (Pc[c] > max){
                     predictions[line] = c;
                     max = Pc[c];
                 }
             }
-            //System.out.format("pred[%d] = %d (Pc = %f)\n",line, predictions[line], max);
         }
         return predictions;
     }

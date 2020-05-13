@@ -10,9 +10,7 @@ import java.util.ListIterator;
  * (array of collumns) in order to access to random variables easily.
  */
 public class Dataset {
-
-    /** A linked list of arrays of strings that contains data parsed through a CSV reader */
-    LinkedList<String[]> data = new LinkedList<String[]>();
+    
     /** An array that will contain all random variables */
     RVariable[] random_vector;
 
@@ -22,8 +20,7 @@ public class Dataset {
      * @param data data that was read from a file
      */
     public Dataset(LinkedList<String[]> data) {
-        this.data = data;
-        this.random_vector = new RVariable[getRVDimension()];
+        this.random_vector = new RVariable[data.getFirst().length];
 
         for(int i=0; i<random_vector.length; i++) {
             // Allocation memory
@@ -32,7 +29,6 @@ public class Dataset {
             // Processing data: get name and values for each collumn of data (random variable)
             ListIterator<String[]> d = data.listIterator();
             random_vector[i].name = d.next()[i];
-            //System.out.println(i + " " + random_vector[i].name);
             while (d.hasNext()) 
                 random_vector[i].values.add(Integer.valueOf(d.next()[i]));
             random_vector[i].calcMaxValue();
@@ -45,7 +41,7 @@ public class Dataset {
      * @return data.getFirst().length (the random vector length)
      */
     public int getRVDimension(){
-        return data.getFirst().length;
+        return random_vector.length;
     }
 
     /**
@@ -54,7 +50,7 @@ public class Dataset {
      * @return data.size() (the size).
      */
     public int getDataSize() {
-        return data.size()-1;
+        return random_vector[0].getValues().length;
     }
 
     /**
