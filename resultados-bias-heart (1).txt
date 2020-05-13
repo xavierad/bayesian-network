@@ -1,0 +1,101 @@
+Note: In network structures all/part of parent-child relationships might be the opossite of the ones represented. But the structure without directed edges should be preserved. See examples of equivalent structures in Slack!
+
+==============
+Bias dataset:
+==============
+
+** LL e MDL
+
+A1: class A2 
+A2: class A8 
+A3: class 
+A4: class A7 
+A5: class A4 
+A6: class A7 
+A7: class A3 
+A8: class A5 
+class:
+
+Note: In this particular dataset, A1 might be linked with any other node.
+
+Accuracy: 100%
+
+               Precision   Recall  F-Measure   Class
+                 1         1         1         0
+                 1         1         1         1
+Weighted Avg.    1         1         1             
+
+==============
+Heart dataset:
+==============
+
+** LL e MDL:
+
+age: class maximum_heart_rate_achieed 
+sex: class age 
+chest: class exercise_induced_angina 
+maximum_heart_rate_achieed: class slope 
+exercise_induced_angina: class maximum_heart_rate_achieed 
+oldpeak: class 
+slope: class oldpeak 
+number_of_major_vessels: class age 
+thal: class sex 
+class:
+
+Accuracy: 85%
+
+
+               Precision   Recall  F-Measure  Class
+               0.889     0.8       0.842      0
+               0.818     0.9       0.857      1
+Weighted Avg.  0.854     0.85      0.85
+
+
+Confusion matrix:
+
+ 0 1   <-- predicted as
+ 8 2 | true class = 0
+ 1 9 | true class = 1
+
+* For class 0 as positive we have:
+TP = 8 (predicted as 0 and true class = 0)
+TN = 9 (predicted as 1 and true class = 1)
+FP = 1 (predicted as 0 but true class = 1)
+FN = 2 (predicted as 1 but true class = 0)
+
+Precision = TP / (TP+FP) = 8 / (8+1) = 0.889
+Recall = TP / (TP+FN) = 8 / (8+2) = 0.8
+Specificity = TN / (TN+FP) = 9 / (9+1) = 0.9
+Sensitivity = recall
+
+* For class 1 as positive we have:
+TP = 9 (predicted as 1 and true class = 1)
+TN = 8 (predicted as 0 and true class = 0)
+FP = 2 (predicted as 1 but true class = 0)
+FN = 1 (predicted as 0 but true class = 1)
+
+Precision = TP / (TP+FP) = 9 / (9+2) = 0.818
+Recall = TP / (TP+FN) = 9 / (9+1) = 0.9
+Specificity = TN / (TN+FP) = 8 /(8+2) = 0.8
+Sensitivity = recall
+
+* Weighted average for all classes:
+
+Mote: in this case we have the same number of 0's and 1's in the test data so it corresponds to the usual arithmetic mean, but in the following we have computations step by step for the general case:
+
+n0 = number of zeros in the test set = 10
+n1 = number of ones in the test set = 10
+
+Precision = (n0*0.889+n1*0.818)/(n0+n1) = 0.854
+Recall = (n0*0.8+n1*0.9)/(n0+n1) = 0.85
+Specificity = (n0*0.9+n1*0.8)/(n0+n1) = 0.85
+Sensitivity = recall
+
+
+
+
+
+
+
+
+ 

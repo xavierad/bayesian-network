@@ -85,11 +85,11 @@ public class TAN implements IClassifier {
 
         // Computations of alphas
         alphas = cf.computeWeights(Nijkc, N, NJikc, NKijc, Nc, r, s, n);
-        for (int i = 0; i < alphas.length; i++) {
+        /*for (int i = 0; i < alphas.length; i++) {
             for (int j = 0; j < alphas[0].length; j++) {
                 System.out.println("alpha[" + i + "][" + j + "] = " + alphas[i][j]);
             }
-        }
+        }*/
 
         // Construction of the directed tree
         G = getMaxSpanTreeConnections(alphas);
@@ -134,13 +134,13 @@ public class TAN implements IClassifier {
             double max = Double.NEGATIVE_INFINITY;
             for (int c=0; c<s; c++) {
                 Pc[c] = Pinst[c] - (Arrays.stream(Pinst).sum());
-                System.out.format("Pc[%d] = %f\n", c, Pc[c]);
+                //System.out.format("Pc[%d] = %f\n", c, Pc[c]);
                 if (Pc[c] > max){
                     predictions[line] = c;
                     max = Pc[c];
                 }
             }
-            System.out.format("pred[%d] = %d (Pc = %f)\n",line, predictions[line], max);
+            //System.out.format("pred[%d] = %d (Pc = %f)\n",line, predictions[line], max);
         }
         return predictions;
     }
@@ -180,7 +180,7 @@ public class TAN implements IClassifier {
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
                     if (i == _i){
-                        Nijkc[_i][i][j][k][c] = NJikc[_i][i][k][c];
+                        Nijkc[_i][i][0][k][c] = NJikc[_i][i][k][c];
                     } else {
                         Nijkc[_i][i][j][k][c]++;
                     }
@@ -251,10 +251,11 @@ public class TAN implements IClassifier {
             for(int j=0; j < r[_i]; j++)
                 for(int k=0; k < r[i]; k++)
                     for(int c=0; c < s; c++){
+                        //thetas[i][j][k][c] = (Nijkc[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
                         if( i != _i ){
                             thetas[i][j][k][c] = (Nijkc[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
                         } else {
-                            thetas[i][j][k][c] = (NJikc[_i][i][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
+                            thetas[i][j][k][c] = (NJikc[_i][i][k][c] + 0.5) / (NKijc[_i][i][0][c] + r[i]*0.5);
                         }
                     }
         }
