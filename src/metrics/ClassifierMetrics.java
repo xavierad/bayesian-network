@@ -31,32 +31,7 @@ public class ClassifierMetrics {
      */
     @Override
     public String toString() {
-        /*String str = String.format("%.2f", accuracy) + '%';
-        for (int i=0; i<sensitivities.length; i++) {
-            if(i==0)
-                str += ", " + "[" + i + ": " + String.format("%.2f", sensitivities[i]) + '%';
-            else if(i==sensitivities.length-1)
-                str += "; " + String.format("%.2f", sensitivities[i]) + '%' + "]";
-            else
-                str += "; " + i + ": " + String.format("%.2f", sensitivities[i]) + '%';
-        }
-        for (int i=0; i<specificities.length; i++) {
-            if(i==0)
-                str += ", " + "[" + i + ": " + String.format("%.2f", specificities[i]) + '%';
-            else if(i==specificities.length-1)
-                str += "; " + String.format("%.2f", specificities[i]) + '%' + "]";
-            else
-                str += "; " + i + ": " + String.format("%.2f", specificities[i]) + '%';
-        }
-        for (int i=0; i<f1scores.length; i++) {
-            if(i==0)
-                str += ", " + "[" + i + ": " + String.format("%.2f", f1scores[i]) + '%';
-            else if(i==f1scores.length-1)
-                str += "; " + String.format("%.2f", f1scores[i]) + '%' + "]";
-            else
-                str += "; " + i + ": " + String.format("%.2f", f1scores[i]) + '%' ;
-        }*/
-        
+               
         return acc.toString() + sens.toString() + spec.toString() + f1score.toString();
     }
 }

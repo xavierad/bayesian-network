@@ -6,7 +6,7 @@ package metrics;
 public class Specificities implements IMetrics {
 
     /**An array that will contain the specitivity for each class and the weighted average */
-    double[] score;
+    private double[] score;
 
     /**
      *

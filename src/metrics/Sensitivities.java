@@ -6,7 +6,7 @@ package metrics;
 public class Sensitivities implements IMetrics{
 
     /**An array that will contain the specitivity for each class and the weighted average */
-    double[] score;
+    private double[] score;
 
     /**
      * Sensitivities' contructor: computes the precision for each class and weighted precision for the whole input dataset.

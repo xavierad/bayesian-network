@@ -9,5 +9,5 @@ public interface IMetrics {
      * This method will return a result array of type double.
      * @return metric an array that contains the results for each class and the average.
      */
-    double[] metric_score();    
+    public double[] metric_score();    
 }

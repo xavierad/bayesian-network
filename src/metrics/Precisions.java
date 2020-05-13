@@ -5,7 +5,7 @@ package metrics;
  */
 public class Precisions implements IMetrics {
     /** Var*/
-    double[] score;
+    private double[] score;
 
     /**
      * Precision Constuctor: computes the precision for each class and weighted precision for the whole input dataset.
