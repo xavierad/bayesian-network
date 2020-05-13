@@ -1,4 +1,4 @@
-package classifier;
+package metrics;
 
 /**
  * F1Scores

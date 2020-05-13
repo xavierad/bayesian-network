@@ -1,4 +1,4 @@
-package classifier;
+package metrics;
 
 /**
  * This class provides an object with metrics that scores the classifier predictions.
