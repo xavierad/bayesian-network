@@ -1,23 +1,43 @@
 package metrics;
 
+import metrics.Sensitivities;
+import metrics.Precisions;
+
 /**
  * This class implements the interface IMetrics. It stores two arrays of type int.
  */
 public class F1Scores implements IMetrics {
 
-    /** An array attribute that will contain the classifier sensitivities of prediction, the first positions for each class and the last one a weighted average */
-    double[] sensitivities;
-    /** An array attribute that will contain the classifier precision of prediction, the first positions for each class and the last one a weighted average */
-    double[] precisions;
+    private double[] score;
+    private int s;
 
     /**
      * F1Scores' contructor receives two arrays of type int and stores them in memory.
      * @param sens a sensitivities array
      * @param prec a precisions array
      */
-    public F1Scores(double[]sens, double[] prec) {        
-        precisions = prec;
-        sensitivities = sens;
+    public F1Scores(int[]preds, int[] classes) {     
+        for(int it : classes)
+            s = Math.max(s, it+1);
+        
+        IMetrics sens = new Sensitivities(preds, classes);  
+        double[] sensitivities = sens.metric_score();
+
+        IMetrics prec = new Precisions(preds, classes);  
+        double[] precisions = prec.metric_score();
+
+        double[] f1scores = new double[s+1];
+
+        int[] Nc = new int[s];
+
+        for(int c=0; c<s; c++)
+            for(int i=0; i<preds.length; i++) 
+                if(c==0) Nc[classes[i]]++;
+
+        for (int c = 0; c < s; c++) {
+            f1scores[c] = (precisions[c]==0 || sensitivities[c]==0) ? 0 : 2*precisions[c]*sensitivities[c] / (precisions[c]+sensitivities[c]);
+            f1scores[s] += f1scores[c]*Nc[c]/classes.length;
+        }
     }
 
     /**
@@ -27,14 +47,7 @@ public class F1Scores implements IMetrics {
      */
     @Override
     public double[] metric_score() {
-
-        double[] f1scores = new double[precisions.length];
-
-        for (int i = 0; i < f1scores.length-1; i++) {
-            f1scores[i] = (precisions[i]==0 || sensitivities[i]==0) ? 0 : 2*precisions[i]*sensitivities[i] / (precisions[i]+sensitivities[i]);
-            f1scores[f1scores.length-1] += f1scores[i]/(f1scores.length-1);
-        }
-        return f1scores;
+        return score;
     }
 
     
