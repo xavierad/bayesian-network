@@ -6,32 +6,24 @@ package metrics;
 public class ClassifierMetrics {
 
     /** An attribute that will contain the classifier accuray of prediction */
-    double accuracy;
+    IMetrics acc;
     /** An array attribute that will contain the classifier sensitivities of prediction, the first positions for each class and the last one a weighted average */
-    double[] sensitivities;
-    /** An array attribute that will contain the classifier specificities of prediction, the first positions for each class and the last one a weighted average */
-    double[] specificities;
-    /** An array attribute that will contain the classifier f1-scores of prediction, the first positions for each class and the last one a weighted average */
-    double[] f1scores;
+    IMetrics sens;
+    IMetrics spec;
+    IMetrics f1score;
 
     /**
      * This constructor will allocate memory. It must receive the type of classifier and the dataset.
      */
     public ClassifierMetrics(int[] predictions, int[] classes) {
 
-        IMetrics acc = new Accuracy(predictions, classes);
-        accuracy = acc.metric_score()[0];
+        acc = new Accuracy(predictions, classes);
 
-        IMetrics sens = new Sensitivities(predictions, classes);
-        sensitivities = sens.metric_score();
+        sens = new Sensitivities(predictions, classes);
 
-        IMetrics spec = new Specificities(predictions, classes);
-        specificities = spec.metric_score();
+        spec = new Specificities(predictions, classes);
 
-        IMetrics prec = new Precisions(predictions, classes);
-
-        IMetrics f1score = new F1Scores(specificities, prec.metric_score());
-        f1scores = f1score.metric_score();
+        f1score = new F1Scores(predictions, classes);
     }
 
     /**
@@ -39,7 +31,7 @@ public class ClassifierMetrics {
      */
     @Override
     public String toString() {
-        String str = String.format("%.2f", accuracy) + '%';
+        /*String str = String.format("%.2f", accuracy) + '%';
         for (int i=0; i<sensitivities.length; i++) {
             if(i==0)
                 str += ", " + "[" + i + ": " + String.format("%.2f", sensitivities[i]) + '%';
@@ -63,8 +55,8 @@ public class ClassifierMetrics {
                 str += "; " + String.format("%.2f", f1scores[i]) + '%' + "]";
             else
                 str += "; " + i + ": " + String.format("%.2f", f1scores[i]) + '%' ;
-        }
-
-        return str;
+        }*/
+        
+        return acc.toString() + sens.toString() + spec.toString() + f1score.toString();
     }
 }

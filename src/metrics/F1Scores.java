@@ -26,7 +26,7 @@ public class F1Scores implements IMetrics {
         IMetrics prec = new Precisions(preds, classes);  
         double[] precisions = prec.metric_score();
 
-        double[] f1scores = new double[s+1];
+        score = new double[s+1];
 
         int[] Nc = new int[s];
 
@@ -35,8 +35,8 @@ public class F1Scores implements IMetrics {
                 if(c==0) Nc[classes[i]]++;
 
         for (int c = 0; c < s; c++) {
-            f1scores[c] = (precisions[c]==0 || sensitivities[c]==0) ? 0 : 2*precisions[c]*sensitivities[c] / (precisions[c]+sensitivities[c]);
-            f1scores[s] += f1scores[c]*Nc[c]/classes.length;
+            score[c] = (precisions[c]==0 || sensitivities[c]==0) ? 0 : 2*precisions[c]*sensitivities[c] / (precisions[c]+sensitivities[c]);
+            score[s] += score[c]*Nc[c]/classes.length;
         }
     }
 
@@ -48,6 +48,20 @@ public class F1Scores implements IMetrics {
     @Override
     public double[] metric_score() {
         return score;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (int i=0; i<score.length; i++) {
+            if(i==0)
+                str += ", " + "[" + i + ": " + String.format("%.2f", score[i]) + '%';
+            else if(i==score.length-1)
+                str += "; " + String.format("%.2f", score[i]) + '%' + "]";
+            else
+                str += "; " + i + ": " + String.format("%.2f", score[i]) + '%';
+        }
+        return str;
     }
 
     

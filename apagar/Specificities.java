@@ -22,7 +22,7 @@ public class Specificities implements IMetrics {
               FP = new int[s],
               Nc = new int[s];
 
-        score = new double[s+1];
+        double[] score = new double[s+1];
 
         /* Specitivity = TN / (TN + FP) */
         for(int c=0; c<s; c++){
