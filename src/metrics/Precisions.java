@@ -1,7 +1,7 @@
 package metrics;
 
 /**
- * Precisions
+ * This class implements the interface IMetrics. It stores two arrays of type int.
  */
 public class Precisions implements IMetrics {
 
@@ -17,8 +17,17 @@ public class Precisions implements IMetrics {
         classes = c;
     }
 
+    /**
+     * This method computes a weighted average precision of the classifier.
+     * For each class (in predictions) it computes the precision (all true positives over predicted positives), assuming that
+     * the current one is the positive and remaining ones are positive. And, in the end
+     * of the day, the method returns the weighted average of all results.
+     * @param predictions
+     * @param classes
+     * @return prediction the precision for each class plus a weighted precision of the predictions made by the classifier
+     */
     @Override
-    public double[] metric_score(int[] preds, int[] classes) {
+    public double[] metric_score() {
         /** Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
         int[] TP = new int[s],
         PP = new int[s],

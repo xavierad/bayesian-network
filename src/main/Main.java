@@ -3,6 +3,7 @@ package main;
 import data.*;
 import load_data.*;
 import classifier.*;
+import metrics.*;
 
 
 /* ****************************************************************************************
@@ -74,12 +75,12 @@ public class Main {
         long predictTime = System.currentTimeMillis() - start;
 
         // Prints of the results: classifier structure network, predictions, and the correspondent timers, and resume of metrics
-        /*System.out.print(tan);
+        System.out.print(tan);
         System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
           System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
         System.out.format("%-20s%s\n",("Time to predict: "), (predictTime + " ms"));
         System.out.format("%-20s%s\n", ("Resume: "), new ClassifierMetrics(pred, test_data.getRVariable(nt).getValues()));
-*/
+
     }
 }

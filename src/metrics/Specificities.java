@@ -1,15 +1,22 @@
 package metrics;
 
 /**
- * Specificities
+ * This class implements the interface IMetrics. It stores two arrays of type int.
  */
 public class Specificities implements IMetrics {
 
-    int[] preds;
-    int[] classes;
-    /** An attribute that will store the number of configurations of the class variable */
-    int s;
+    /** An array attribute that contains the predictions */
+    private int[] preds;
+    /** An array attribute that contains the real classes */
+    private int[] classes;
+    /** An attribute that stores the number of configurations of the class variable */
+    private int s;
 
+    /**
+     * Specificities' contructor receives two arrays of type int and stores them in memory.
+     * @param p a predictions array
+     * @param c a class array
+     */
     public Specificities(int[] p, int[] c) {
         for(int it : c)
             s = Math.max(s, it+1);
@@ -17,8 +24,15 @@ public class Specificities implements IMetrics {
         classes = c;
     }
 
+    /**
+     * This method computes a weighted average specitivity of the classifier.
+     * For each class (in predictions) it computes the specitivity (all true negatives over all true negatives plus false positives), assuming that
+     * the current one is the negative and remaining ones are positive. And, in the end
+     * of the day, the method returns the weighted average of all results.
+     * @return specificities the specitivity for each class plus a weighted specitivity of the predictions made by the classifier.
+     */
     @Override
-    public double[] metric_score(int[] preds, int[] classes) {
+    public double[] metric_score() {
         /** Arrays of size s, True Positive and False Negative, that contain the countings for each class, and an array that contains the number of times each class appears in classes*/
         int[] TP = new int[s],
         FN = new int[s],
