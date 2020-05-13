@@ -43,6 +43,7 @@ public class TAN implements IClassifier {
     private List<Connections<Integer>> G;
 
 
+
     private IScoreFunction cf;
 
 
@@ -114,7 +115,7 @@ public class TAN implements IClassifier {
         // To iterate over each instance
         for(int line=0; line<Nt; line++) {
             for (int c=0; c<s; c++) {
-                Pinst[c] = thetaC[c];
+                Pinst[c] = Math.log(thetaC[c]);
 
                 // To iterate over each connection and get son and father
                 for (Connections<Integer> it : G){
@@ -125,19 +126,21 @@ public class TAN implements IClassifier {
                     int j = test_data.getRVariable(_i).getValue(line);
 
                     // Computation of each instance in test_data
-                    Pinst[c] *= thetas[i][j][k][c];
+                    Pinst[c] += Math.log(thetas[i][j][k][c]);
                 }
             }
 
             // Computing the probability of each class given an instance and assigning the predicion class
-            double max = 0.0;
+            double max = Double.NEGATIVE_INFINITY;
             for (int c=0; c<s; c++) {
-                Pc[c] = Pinst[c] / (Arrays.stream(Pinst).sum());
+                Pc[c] = Pinst[c] - (Arrays.stream(Pinst).sum());
+                System.out.format("Pc[%d] = %f\n", c, Pc[c]);
                 if (Pc[c] > max){
                     predictions[line] = c;
                     max = Pc[c];
                 }
             }
+            System.out.format("pred[%d] = %d (Pc = %f)\n",line, predictions[line], max);
         }
         return predictions;
     }
@@ -167,7 +170,6 @@ public class TAN implements IClassifier {
         // i is the feature node that will have as parent node _i
         for(int i=0; i<n; i++) {
             for(int _i=0; _i<n; _i++) {
-                if(_i==i) continue;
                 for(int line=0; line<train_data.getDataSize(); line++) {
                     int j = train_data.getRVariable(_i).getValue(line);
                     int k = train_data.getRVariable(i).getValue(line);
@@ -175,9 +177,13 @@ public class TAN implements IClassifier {
 
                     // For each i and _i, given j, k and c increments in
                     // each multidimension array in the correspondent position
-                    Nijkc[_i][i][j][k][c]++;
                     NJikc[_i][i][k][c]++;
                     NKijc[_i][i][j][c]++;
+                    if (i == _i){
+                        Nijkc[_i][i][j][k][c] = NJikc[_i][i][k][c];
+                    } else {
+                        Nijkc[_i][i][j][k][c]++;
+                    }
 
                     // Only once is needed to increment
                     if(i == 0 && _i == 1)
@@ -219,7 +225,7 @@ public class TAN implements IClassifier {
                 }
             }
             visitedNodes.add(w);
-            maxST.add(new Connections<Integer>(k, w));
+            maxST.add(new Connections<Integer>(w, k));
         }
         return maxST;
     }
@@ -244,9 +250,13 @@ public class TAN implements IClassifier {
             int i = it.getSon();
             for(int j=0; j < r[_i]; j++)
                 for(int k=0; k < r[i]; k++)
-                    for(int c=0; c < s; c++)
-                        thetas[i][j][k][c] =
-                        (Nijkc[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
+                    for(int c=0; c < s; c++){
+                        if( i != _i ){
+                            thetas[i][j][k][c] = (Nijkc[_i][i][j][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
+                        } else {
+                            thetas[i][j][k][c] = (NJikc[_i][i][k][c] + 0.5) / (NKijc[_i][i][j][c] + r[i]*0.5);
+                        }
+                    }
         }
     }
 

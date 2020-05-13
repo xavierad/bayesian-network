@@ -1,4 +1,3 @@
-C:\Users\vicen\Desktop\4A2S\POO\project\src\classifier\ClassifierMetrics.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\classifier\IClassifier.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\classifier\IScoreFunction.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\classifier\LL.java
@@ -9,3 +8,10 @@ C:\Users\vicen\Desktop\4A2S\POO\project\src\data\RVariable.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\entities\Connections.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\load_data\ReadCSV.java
 C:\Users\vicen\Desktop\4A2S\POO\project\src\main\Main.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\Accuracy.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\ClassifierMetrics.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\F1Scores.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\IMetrics.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\Precisions.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\Sensitivities.java
+C:\Users\vicen\Desktop\4A2S\POO\project\src\metrics\Specificities.java

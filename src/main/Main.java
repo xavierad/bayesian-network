@@ -78,7 +78,7 @@ public class Main {
         System.out.print(tan);
         System.out.format("%-20s%s\n",("Time to build: "), (buildTime + " ms"));
         for (int i = 0; i < pred.length; i++)
-          System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
+            System.out.format("%-20s%d\n",("-> instance " + (i+1) + ":"), pred[i]);
         System.out.format("%-20s%s\n",("Time to predict: "), (predictTime + " ms"));
         System.out.format("%-20s%s\n", ("Resume: "), new ClassifierMetrics(pred, test_data.getRVariable(nt).getValues()));
 
