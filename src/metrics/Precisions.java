@@ -4,20 +4,22 @@ package metrics;
  * This class implements the interface IMetrics.
  */
 public class Precisions implements IMetrics {
-    /**An array that will contain the precision for each class and the weighted average. */
+    /** An array that contains the score for each class and for the weighted average score */
     private double[] score;
 
     /**
-     * Precision Constuctor: computes the precision for each class and weighted precision for the whole input dataset.
-     * The precision measurement is only computed on the constructor and the score/result is saved for quick and easy acess.
+     * Precisions' contructor: computes the precision for each class and weighted average for the whole input dataset.
+     * The precisions metrics are only computed on the constructor and the score/result is saved for quick and easy acesss.
+     * @param preds a predictions array
+     * @param classes a class array
      */
     public Precisions(int[] preds, int[] classes) {
-        // Auxiliary variable: number of classes
+        /** The maximum value that classes contains */
         int s = 0;
         for(int it : classes)
             s = Math.max(s, it+1);
 
-        // Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes
+        /* Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes. */
         int[] TP = new int[s],
               PP = new int[s],
               Nc = new int[s];
@@ -60,7 +62,7 @@ public class Precisions implements IMetrics {
         String str = "";
         for (int i=0; i<score.length; i++) {
             if(i==0)
-                str += ", " + "[" + i + ": " + String.format("%.2f", score[i]) + '%';
+                str += "Precision: [" + i + ": " + String.format("%.2f", score[i]) + '%';
             else if(i==score.length-1)
                 str += "; " + String.format("%.2f", score[i]) + '%' + "]";
             else
