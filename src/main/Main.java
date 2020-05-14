@@ -5,36 +5,6 @@ import load_data.*;
 import classifier.*;
 import metrics.*;
 
-
-/* ****************************************************************************************
- * (Xavier)
- * Para compilar: >/src javac bnc/*.java load_data/*.java main/*.java (antigo)
- * Para correr: >/src java main.Main bias-train.csv bias-test.csv <score>
- * Para gerar o ficheiro .jarpara gerar fichero jar
- * - jar cfm lab3.jar manif.txt lab3/* main/*
- * - java -jar hello.jar   --> para compilar o .jar
- * - jar tf hello.jar      --> para ver o conteúdo
- *
- * Para compilar: (Vicente)
- *   /. javac @files.txt  (files.txt contêm os path para os varios .java este é atualizado via
- *                         dir /b /s | findstr \.java > files.txt )
- * Para correr:
- *  /src java main/Main ../bin/bias-train.csv ../bin/bias-test.csv LL
- *
- *
- * DÚVIDAS:
- * [] ver linha 36 de Dataset: parece que faz duas vezes o system.out.println... Porquê?
- * [] talvez seja desnecessário guardar o atributo data em dataset: getRVDimension seria random_vector.length,
- *     getDataSize seria random_vector[0].size() e na linha 27 pôr this.random_vector = new RVariable[data.getFirst().length];
- * [] ver dúvida em ClassifierMetrics linha 27 ()
- *
- *
- * A FAZER:
- * []
- * []
- * []
- * *****************************************************************************************/
-
 public class Main {
     public static void main(String[] args) {
 
