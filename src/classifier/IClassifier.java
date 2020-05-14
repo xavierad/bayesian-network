@@ -2,7 +2,7 @@ package classifier;
 import data.*;
 
 /**
- * IClassifier Interface - general form of a classifier.
+ * IClassifier Interface - An interface that allows clients to implement their own Classifiers.
  */
 public interface IClassifier {
     /**
