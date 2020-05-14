@@ -29,6 +29,8 @@ public class Main {
         ReadCSV read_test = new ReadCSV(args[1]);
         Dataset test_data = new Dataset(read_test.ReadFile());
 
+        train_data.getRVariable(train_data.getRVDimension()-1).getMax_value();
+
         // Build a classifier with cost function sf
         IClassifier tan = new TAN(sf);
         long start = System.currentTimeMillis();

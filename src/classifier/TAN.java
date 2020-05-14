@@ -1,7 +1,6 @@
 package classifier;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import entities.*;
@@ -101,14 +100,22 @@ public class TAN implements IClassifier {
      */
     @Override
     public int[] predict(Dataset test_data) {
-        int Nt = test_data.getDataSize();
-        int[] predictions = new int[Nt];
 
-        double[] Pc = new double[s];
+        if (test_data.getRVariable(test_data.getRVDimension()-1).getMax_value() > s-1) {
+            System.out.printf("Got an unusal class in test data in instance!");
+            System.exit(1);
+        }
+
+        // The number of instances
+        int Nt = test_data.getDataSize();
+        // The predictions array that stores the predictions for each instance
+        int[] predictions = new int[Nt];
+        // An array that contains, for each class, the probability of an instance given the class 
         double[] Pinst = new double[s];
 
         // To iterate over each instance
         for(int line=0; line<Nt; line++) {
+            double max = Double.NEGATIVE_INFINITY;
             for (int c=0; c<s; c++) {
                 Pinst[c] = Math.log(thetaC[c]);
 
@@ -118,20 +125,21 @@ public class TAN implements IClassifier {
                     int _i = it.getFather();
 
                     int k = test_data.getRVariable(i).getValue(line);
-                    int j = test_data.getRVariable(_i).getValue(line);
+                    int j = test_data.getRVariable(_i).getValue(line);   
+
+                    if (k > r[i]-1 || j > r[_i]-1) {
+                        System.out.printf("Got an unusal value in a feature in test data in instance %d!", (line+1));
+                        System.exit(1);
+                    }
+
 
                     // Computation of each instance in test_data
                     Pinst[c] += Math.log(thetas[i][j][k][c]);
                 }
-            }
-
-            // Computing the probability of each class given an instance and assigning the predicion class
-            double max = Double.NEGATIVE_INFINITY;
-            for (int c=0; c<s; c++) {
-                Pc[c] = Pinst[c] - (Arrays.stream(Pinst).sum());
-                if (Pc[c] > max){
+                // Computing the probability of each class given an instance and assigning the predicion class
+                if (Pinst[c] > max){
                     predictions[line] = c;
-                    max = Pc[c];
+                    max = Pinst[c];
                 }
             }
         }

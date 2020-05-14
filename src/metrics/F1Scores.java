@@ -19,7 +19,7 @@ public class F1Scores implements IMetrics {
      */
     public F1Scores(int[]preds, int[] classes) {
 
-        /** The maximum value that classes contains */
+        // The maximum value that classes contains 
         int s=0;
         for(int it : classes)
             s = Math.max(s, it+1);

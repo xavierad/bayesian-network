@@ -16,6 +16,8 @@ public class ClassifierMetrics {
 
     /**
      * This constructor allocates memory. It must receive the type of classifier and the dataset.
+     * @param predictions a predictions array
+     * @param classes a class array
      */
     public ClassifierMetrics(int[] predictions, int[] classes) {
 

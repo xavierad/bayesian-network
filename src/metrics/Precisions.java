@@ -14,12 +14,12 @@ public class Precisions implements IMetrics {
      * @param classes a class array
      */
     public Precisions(int[] preds, int[] classes) {
-        /** The maximum value that classes contains */
+        // The maximum value that classes contains
         int s = 0;
         for(int it : classes)
             s = Math.max(s, it+1);
 
-        /* Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes. */
+        // Arrays of size s, True Negative and Predicted Positive, that contain the countings for each class, and an array that contains the number of times each class appears in classes. 
         int[] TP = new int[s],
               PP = new int[s],
               Nc = new int[s];
