@@ -37,13 +37,13 @@ public class TAN implements IClassifier {
     private double[][][][] thetas;
     /** An array that will contain the parameters learning of the class */
     private double[] thetaC;
+    
+    /** The score function to compute the weights for the directed graph */
+    private IScoreFunction cf;
 
-
+    /** A list of connections between features nodes of type Integer */
     private List<Connections<Integer>> G;
 
-
-
-    private IScoreFunction cf;
 
 
     /**
@@ -70,9 +70,8 @@ public class TAN implements IClassifier {
         // To store the features names
         feature_names = new String[n];
 
-        // To store the maximum values of each feature variable and thier names
+        // To store the maximum values of each feature variable and their names
         r = new int[n];
-
         for(int i=0; i<r.length; i++) {
             feature_names[i] = train_data.getRVariable(i).getRVName();
             r[i] = train_data.getRVariable(i).getMax_value() + 1;
@@ -101,8 +100,9 @@ public class TAN implements IClassifier {
     @Override
     public int[] predict(Dataset test_data) {
 
+        // Check if in test data there is some unsual value
         if (test_data.getRVariable(test_data.getRVDimension()-1).getMax_value() > s-1) {
-            System.out.printf("Got an unusal class in test data in instance!");
+            System.out.printf("Got an unusal class in test data!");
             System.exit(1);
         }
 
@@ -127,6 +127,7 @@ public class TAN implements IClassifier {
                     int k = test_data.getRVariable(i).getValue(line);
                     int j = test_data.getRVariable(_i).getValue(line);   
 
+                    // to check if there is some feature with some invalid value
                     if (k > r[i]-1 || j > r[_i]-1) {
                         System.out.printf("Got an unusal value in a feature in test data in instance %d!", (line+1));
                         System.exit(1);
@@ -273,21 +274,24 @@ public class TAN implements IClassifier {
             thetaC[c] = (Nc[c] + 0.5) / (N + s*0.5);
     }
 
+
+     /**
+      * This method converts the tree structure to a string in format <node>:<parent node> and returns it.
+      * @param it a connection between two nodes
+      * @return a string in format <node>:<parent node>
+      */
     protected String connectiontoString(Connections<Integer> it) {
 
         if(it.getSon() == it.getFather())
             return feature_names[it.getSon()] + " : ";
         return feature_names[it.getSon()] + " : " + feature_names[it.getFather()];
     }
-    /*
-    public List<String> structuretoString() {
-        List<String> str = new ArrayList<String>();
-        for (Connections it : G) {
-            str.add((connectiontoString(it)));
-        }
-        return str;
-    }*/
 
+
+    /**
+     * This method returns a string of the TAN structure network
+     * @return str the TAN structure network string
+     */
     @Override
     public String toString() {
         int i=0;
