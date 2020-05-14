@@ -14,7 +14,7 @@ public class Accuracy implements IMetrics {
      * @param classes a class array
      */
     public Accuracy(int[] preds, int[] classes) {
-        /** The number of correct predictions */
+        //The number of correct predictions
         int ncp=0;
 
         for (int i=0; i<preds.length; i++)
@@ -34,7 +34,7 @@ public class Accuracy implements IMetrics {
     }
 
     /**
-     * This method prints the resume of the classifier metrics.
+     * This method will return a string with the accuracy score as a percentage.
      */
     @Override
     public String toString() {

@@ -27,18 +27,18 @@ public class Specificities implements IMetrics {
 
         score = new double[s+1];
 
-        // Specitivity = TN / (TN + FP) 
+        // Specitivity = TN / (TN + FP)
         for(int c=0; c<s; c++){
             for(int i=0; i<preds.length; i++) {
                 if(c==0) Nc[classes[i]]++;
-                // True Negatives 
+                // True Negatives
                 if(preds[i] == classes[i] && c != preds[i])
                     TN[c]++;
                 // False Positives
                 else if(preds[i] != classes[i] && c == preds[i])
                     FP[c]++;
             }
-            // Specitivity per class 
+            // Specitivity per class
             score[c] = (TN[c]==0) ? 0 : (double) 100*TN[c]/(TN[c] + FP[c]);
             // Weighted average of all specificities
             score[s] += score[c]*Nc[c]/classes.length;
@@ -55,7 +55,8 @@ public class Specificities implements IMetrics {
     }
 
     /**
-     * This method returns a string of the score array computed.
+     * This method will return a string with the specificties scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {

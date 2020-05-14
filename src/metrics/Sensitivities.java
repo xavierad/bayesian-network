@@ -24,7 +24,7 @@ public class Sensitivities implements IMetrics{
         int[] TP = new int[s],
               FN = new int[s],
               Nc = new int[s];
-              
+        // An array that will contain the sensitivity for each class and the weighted average
         score = new double[s+1];
 
         // Sensitivity = TP / (TP + FN)
@@ -55,7 +55,8 @@ public class Sensitivities implements IMetrics{
     }
 
     /**
-     * This method returns a string of the score array computed.
+     * This method will return a string with the sensitivity scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {

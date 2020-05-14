@@ -23,7 +23,7 @@ public class Precisions implements IMetrics {
         int[] TP = new int[s],
               PP = new int[s],
               Nc = new int[s];
-        
+        // An array that will contain the precision for each class
         score = new double[s+1];
 
         // Precision = TP/PP
@@ -54,7 +54,8 @@ public class Precisions implements IMetrics {
     }
 
     /**
-     * This method returns a string of the score array computed.
+     * This method will return a string with the precision scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {
