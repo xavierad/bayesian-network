@@ -7,23 +7,24 @@ import metrics.Precisions;
  * This class implements the interface IMetrics. It stores two arrays of type int.
  */
 public class F1Scores implements IMetrics {
-
+    /** An array that will contain the F1-Scores for each class and the weighted average. */
     private double[] score;
+    /** Number of classes */
     private int s;
 
     /**
      * F1Scores' contructor receives two arrays of type int and stores them in memory.
-     * @param sens a sensitivities array
-     * @param prec a precisions array
+     * @param preds predictions of the classifier
+     * @param classes test dataset classes.
      */
-    public F1Scores(int[]preds, int[] classes) {     
+    public F1Scores(int[]preds, int[] classes) {
         for(int it : classes)
             s = Math.max(s, it+1);
-        
-        IMetrics sens = new Sensitivities(preds, classes);  
+
+        IMetrics sens = new Sensitivities(preds, classes);
         double[] sensitivities = sens.metric_score();
 
-        IMetrics prec = new Precisions(preds, classes);  
+        IMetrics prec = new Precisions(preds, classes);
         double[] precisions = prec.metric_score();
 
         score = new double[s+1];
@@ -31,7 +32,7 @@ public class F1Scores implements IMetrics {
         int[] Nc = new int[s];
 
         for(int c=0; c<s; c++)
-            for(int i=0; i<preds.length; i++) 
+            for(int i=0; i<preds.length; i++)
                 if(c==0) Nc[classes[i]]++;
 
         for (int c = 0; c < s; c++) {
@@ -41,15 +42,18 @@ public class F1Scores implements IMetrics {
     }
 
     /**
-     * This method computes the F1-score for each class and a weighted average as well of the classifier. It
-     * makes the use of the sensitivity and precision scores.
-     * @return f1-score a score
+     * This method returns the F1-score for each class and a weighted average as well of the classifier.
+     * @return f1-measurament scores
      */
     @Override
     public double[] metric_score() {
         return score;
     }
 
+    /**
+     * This method will return a string with the F1-Score scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
+     */
     @Override
     public String toString() {
         String str = "";
@@ -64,5 +68,5 @@ public class F1Scores implements IMetrics {
         return str;
     }
 
-    
+
 }

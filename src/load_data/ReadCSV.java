@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 /**
- * ReadCSV - This class will provide rowed data
- * read from a CSV file. It throws away the
- * first row (the header).
+ * ReadCSV - This class will provide rowed data read from a CSV file. It throws away the first row (the header).
  */
 public class ReadCSV {
 
@@ -17,8 +15,7 @@ public class ReadCSV {
 
     /**
      * This the constructor of ReadCSV class.
-     * Assigns the string file to be read to
-     * the attribute file.
+     * Assigns the string file to be read to the attribute file.
      * @param file file to be read.
      */
     public ReadCSV(String file) {
@@ -27,8 +24,7 @@ public class ReadCSV {
 
     /**
      * This method will read a file with BufferedReader library.
-     * It will abort the program if there is some unusal
-     * type of data like a non-integer.
+     * It will abort the program if there is some unusal type of data like a non-integer.
      * @return tdata (the rowed data read).
      */
     public LinkedList<String[]> ReadFile() {
@@ -41,9 +37,9 @@ public class ReadCSV {
             String line = "";
 
             BufferedReader br = new BufferedReader(new FileReader(file));
-            
+
             // First line are only strings, so keep them as the names of random variables
-            line = br.readLine();  
+            line = br.readLine();
             tdata.add(line.split(","));
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(","); // using comma as separator

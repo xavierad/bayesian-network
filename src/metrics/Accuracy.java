@@ -4,16 +4,17 @@ package metrics;
  * This class implements the interface IMetrics. It stores two arrays of type int.
  */
 public class Accuracy implements IMetrics {
-    /** */
+
+    /** Accuracy measurament */
     private double[] score;
 
     /**
-     * The Accuracy's contructor receives two arrays of type int and stores them in memory.
-     * @param preds a predictions array.
-     * @param classes a class array.
+     * The Accuracy's contructor receives two arrays of type int and computes the accuracy according to these.
+     * @param preds predictions array.
+     * @param classes test dataset class array.
      */
     public Accuracy(int[] preds, int[] classes) {
-        /** The number of correct predictions */
+        //The number of correct predictions
         int ncp=0;
 
         for (int i=0; i<preds.length; i++)
@@ -33,7 +34,7 @@ public class Accuracy implements IMetrics {
     }
 
     /**
-     * This method will print the resume of the classifier metrics.
+     * This method will return a string with the accuracy score as a percentage.
      */
     @Override
     public String toString() {

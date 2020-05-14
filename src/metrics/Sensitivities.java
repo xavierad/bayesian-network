@@ -24,10 +24,10 @@ public class Sensitivities implements IMetrics{
         int[] TP = new int[s],
               FN = new int[s],
               Nc = new int[s];
-        /**An array that will contain the sensitivity for each class and the weighted average */
+        // An array that will contain the sensitivity for each class and the weighted average
         score = new double[s+1];
 
-        /* Sensitivity = TP / (TP + FN) */
+        // Sensitivity = TP / (TP + FN)
         for(int c=0; c < s; c++){
             for(int i=0; i<preds.length; i++) {
                 if(c==0) Nc[classes[i]]++;
@@ -38,9 +38,9 @@ public class Sensitivities implements IMetrics{
                 else if(preds[i] != classes[i] && c != preds[i])
                     FN[c]++;
             }
-            /* sensitivity per class */
+            // sensitivity per class
             score[c] = (TP[c]==0) ? 0 : (double)100*TP[c]/(TP[c] + FN[c]);
-            /* Weighted average of all sensitivities */
+            // Weighted average of all sensitivities
             score[s] += score[c]*Nc[c]/classes.length;
         }
     }
@@ -55,7 +55,8 @@ public class Sensitivities implements IMetrics{
     }
 
     /**
-     *
+     * This method will return a string with the sensitivity scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {

@@ -4,7 +4,7 @@ package metrics;
  * This class implements the interface IMetrics.
  */
 public class Precisions implements IMetrics {
-    /** Var*/
+    /**An array that will contain the precision for each class and the weighted average. */
     private double[] score;
 
     /**
@@ -21,7 +21,7 @@ public class Precisions implements IMetrics {
         int[] TP = new int[s],
               PP = new int[s],
               Nc = new int[s];
-        //An array that will contain the precision for each class
+        // An array that will contain the precision for each class
         score = new double[s+1];
 
         // Precision = TP/PP
@@ -52,7 +52,8 @@ public class Precisions implements IMetrics {
     }
 
     /**
-     * This method will print the resume of the classifier metrics.
+     * This method will return a string with the precision scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {

@@ -2,14 +2,14 @@ package entities;
 
 /**
  * This constructor helps in how we can save the nodes connections in a list.
- * That contains the constructorÂ´s getters and setters to access your fields.
+ * That contains the constructor's getters and setters to access your fields.
  */
 public class Connections<T> {
     private T father;
     private T son;
 
     /**
-     * The constructor fields 
+     * The constructor fields
      * @param son node
      * @param father node
      */
@@ -29,7 +29,7 @@ public class Connections<T> {
 
     /**
      * Function to modify a Father field in the constructor
-     * @param father modifies the father field in the constructor 
+     * @param father modifies the father field in the constructor
      */
     public void setFather(T father) {
         this.father = father;

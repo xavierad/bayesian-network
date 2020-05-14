@@ -52,7 +52,8 @@ public class Specificities implements IMetrics {
     }
 
     /**
-     *
+     * This method will return a string with the specificties scores as percentages.
+     * The scores for each class and average will be seperated by commmas.
      */
     @Override
     public String toString() {
