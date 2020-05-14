@@ -10,7 +10,7 @@ import java.util.ListIterator;
  * (array of collumns) in order to access to random variables easily.
  */
 public class Dataset {
-    
+
     /** An array that will contain all random variables */
     RVariable[] random_vector;
 
@@ -29,15 +29,14 @@ public class Dataset {
             // Processing data: get name and values for each collumn of data (random variable)
             ListIterator<String[]> d = data.listIterator();
             random_vector[i].name = d.next()[i];
-            while (d.hasNext()) 
+            while (d.hasNext())
                 random_vector[i].values.add(Integer.valueOf(d.next()[i]));
             random_vector[i].calcMaxValue();
         }
     }
 
     /**
-     * This method gets the number
-     * of random variables in random_vector.
+     * This method gets the number of random variables in random_vector.
      * @return data.getFirst().length (the random vector length)
      */
     public int getRVDimension(){
@@ -45,8 +44,7 @@ public class Dataset {
     }
 
     /**
-     * This method gets the size of
-     * data, the amount of instances.
+     * This method gets the size of data, the amount of instances.
      * @return data.size() (the size).
      */
     public int getDataSize() {
