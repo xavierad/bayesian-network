@@ -5,15 +5,17 @@ package metrics;
  */
 public class ClassifierMetrics {
 
-    /** An attribute that will contain the classifier accuray of prediction */
+    /** An attribute that contains the classifier accuracy of prediction */
     IMetrics acc;
-    /** An array attribute that will contain the classifier sensitivities of prediction, the first positions for each class and the last one a weighted average */
+    /** An attribute that contains the classifier sensitivities of prediction, the first positions for each class and the last one a weighted average */
     IMetrics sens;
+    /** An attribute that contains the classifier specifities of prediction, the first positions for each class and the last one a weighted average */
     IMetrics spec;
+    /** An attribute that contains the classifier f1-scores of prediction, the first positions for each class and the last one a weighted average */
     IMetrics f1score;
 
     /**
-     * This constructor will allocate memory. It must receive the type of classifier and the dataset.
+     * This constructor allocates memory. It must receive the type of classifier and the dataset.
      */
     public ClassifierMetrics(int[] predictions, int[] classes) {
 
@@ -27,11 +29,11 @@ public class ClassifierMetrics {
     }
 
     /**
-     * This method will print the resume of the classifier metrics.
+     * This method prints the resume of the classifier metrics.
      */
     @Override
     public String toString() {
                
-        return acc.toString() + sens.toString() + spec.toString() + f1score.toString();
+        return acc.toString() + ", " + sens.toString() + ", " + spec.toString() + ", " + f1score.toString();
     }
 }
